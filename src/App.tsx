@@ -1,8 +1,14 @@
-import React from 'react';
+import { ThemeProvider } from 'styled-components';
+import { Content } from './pages';
+import { theme } from './theme';
 
 function App() {
   return (
-    <div />
+    <>
+      <ThemeProvider theme={theme}>
+        <Content />
+      </ThemeProvider>
+    </>
   );
 }
 
