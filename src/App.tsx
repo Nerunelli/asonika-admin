@@ -1,13 +1,16 @@
 import { ThemeProvider } from 'styled-components';
 import { Content } from './pages';
 import { theme } from './theme';
+import { BrowserRouter } from "react-router-dom";
 
 function App() {
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <Content />
-      </ThemeProvider>
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <Content />
+        </ThemeProvider>
+      </BrowserRouter>
     </>
   );
 }
