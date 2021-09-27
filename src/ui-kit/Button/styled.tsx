@@ -12,7 +12,7 @@ export const Btn = styled.button<IBtn>`
     width: ${width};
     height: ${height};
     display: flex;
-        justify-content: center;
+    justify-content: center;
     align-items: center;
     background: ${normal ? theme.colors.lightGreen : danger ? theme.colors.red : theme.color.text};
     font-size: 14px;
