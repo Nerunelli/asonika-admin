@@ -1,12 +1,14 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Wrapper = styled.div`
-  height: 50px;
-  padding: 0 50px;
-  box-shadow: rgb(0 0 0 / 10%) 0px 4px 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  ${({theme: {shadow}}) => css`  
+    height: 50px;
+    padding: 0 50px;
+    box-shadow: ${shadow.main} 0px 4px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  `}
 `;
 
 export const Side = styled.div`
@@ -15,20 +17,26 @@ export const Side = styled.div`
 `;
 
 export const Title = styled.div`
-  font-size: 16px;
-  font-weight: bold;
-  color: #707070;
-  margin-left: 20px;
+  ${({theme: {colors}}) => css`  
+    font-size: 16px;
+    font-weight: bold;
+    color: ${colors.text};
+    margin-left: 20px;
+  `}
 `;
 
 export const Hello = styled.div`
-  color: #707070;
-  font-size: 16px;
+  ${({theme: {colors}}) => css`
+    color: ${colors.text};
+    font-size: 16px;
+  `}
 `;
 
 export const Username = styled.div`
-  font-size: 16px;
-  font-weight: bold;
-  color: #457C02;
-  margin-right: 20px;
+  ${({theme: {colors}}) => css`
+    font-size: 16px;
+    font-weight: bold;
+    color: ${colors.greenText};
+    margin-right: 20px;
+  `}
 `;

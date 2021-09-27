@@ -1,7 +1,12 @@
 import { colors } from "./colors";
 import { shadow } from "./shadow";
 
-export const theme = {
+interface ITheme {
+  colors: {[key: string] : string};
+  shadow: {[key: string] : string};
+}
+
+export const theme: ITheme = {
   colors,
   shadow,
 }

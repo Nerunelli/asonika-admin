@@ -1,15 +1,18 @@
-import { GroupButton } from "../../ui-kit/GroupButton";
+import { Button } from "../../ui-kit/Button";
 import { Wrapper } from "./styled";
 
 export const Groups = () => {
   return (
     <Wrapper>
-      <GroupButton>
+      <Button width='350px' height='58px' normal>
         Категории
-      </GroupButton>
-      <GroupButton>
-        ТУ
-      </GroupButton>
+      </Button>
+      <Button width='350px' height='58px' normal>
+        Категории
+      </Button>
+      <Button width='350px' height='58px' normal>
+        Категории
+      </Button>
     </Wrapper>
 
   );

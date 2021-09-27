@@ -1,3 +1,3 @@
 export const shadow = {
-  shadow: 'green',
+  main: '#0000001A',
 }

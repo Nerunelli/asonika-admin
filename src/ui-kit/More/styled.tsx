@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Wrapper = styled.button`
   background-color: #fff;
@@ -10,28 +10,29 @@ export const Wrapper = styled.button`
 `;
 
 export const Dots = styled.div`
-  position: relative;
-  width: 5px;
-  height: 5px;
-  background-color: #707070;
-  border-radius: 50%;
-
-  &::before, &::after {
-    display: block;
-    position: absolute;
-    content: '';
+  ${({theme: {colors}}) => css`
+    position: relative;
     width: 5px;
     height: 5px;
-    background-color: #707070;
+    background-color: ${colors.text};
     border-radius: 50%;
-  }
 
-  &::before {
-    top: -7px;
-  }
+    &::before, &::after {
+      display: block;
+      position: absolute;
+      content: '';
+      width: 5px;
+      height: 5px;
+      background-color: ${colors.text};
+      border-radius: 50%;
+    }
 
-  &::after {
-    bottom: -7px;
-  }
+    &::before {
+      top: -7px;
+    }
 
- `;
+    &::after {
+      bottom: -7px;
+    }
+  `}
+`;
