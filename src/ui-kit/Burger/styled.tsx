@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.button`
   background-color: #fff;
@@ -10,14 +10,15 @@ export const Wrapper = styled.button`
 `;
 
 export const Lines = styled.div`
-  ${({theme: {colors}}) => css`
+  ${({ theme: { colors } }) => css`
     position: relative;
     width: 26px;
     height: 3px;
     background-color: ${colors.text};
     border-radius: 4px;
-    
-    &::before, &::after {
+
+    &::before,
+    &::after {
       display: block;
       position: absolute;
       content: '';
@@ -25,14 +26,14 @@ export const Lines = styled.div`
       width: 26px;
       height: 3px;
       background-color: ${colors.text};
-    };
+    }
 
     &::before {
       top: -7px;
-    };
+    }
 
     &::after {
       bottom: -7px;
-    };
+    }
   `}
 `;

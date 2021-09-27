@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Background = styled.div`
   position: absolute;
@@ -12,7 +12,7 @@ export const Background = styled.div`
 
 export const Container = styled.div`
   position: absolute;
-  
+
   top: 50px;
   left: 0;
   width: max-content;

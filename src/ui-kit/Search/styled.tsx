@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.div`
   position: relative;
@@ -6,9 +6,8 @@ export const Wrapper = styled.div`
   height: 38px;
 `;
 
-
 export const Input = styled.input`
-  ${({theme: {colors}}) => css`
+  ${({ theme: { colors } }) => css`
     border: ${colors.border} 1px solid;
     display: flex;
     align-items: center;
@@ -21,7 +20,7 @@ export const Input = styled.input`
 
     &::placeholder {
       font-size: 14px;
-      color: ${colors.border};      
+      color: ${colors.border};
     }
 
     &:focus {
@@ -39,9 +38,7 @@ export const SearchIcon = styled.div`
   align-items: center;
   padding: 0 6px;
   margin-left: -36px;
-  background: url('static/images/Search.svg');
-  background-repeat: no-repeat;
-  background-position: center;
+  background: url('static/images/Search.svg') no-repeat center;
   background-size: 20px;
   cursor: pointer;
 `;

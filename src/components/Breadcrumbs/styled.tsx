@@ -1,21 +1,18 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
-  ${({theme: {colors}}) => css`
-    display: flex;
-    align-items: center;
-    margin: 20px 50px;
-    height: 20px;
-    font-size: 12px;
-  `}
+  display: flex;
+  align-items: center;
+  margin: 20px 50px;
+  height: 20px;
+  font-size: 12px;
 `;
 
 export const CrumbItem = styled.div`
-  ${({theme: {colors}}) => css`
+  ${({ theme: { colors } }) => css`
     margin-right: 8px;
     margin-left: 8px;
     &::after {
-
     }
     &:last-child {
       font-weight: bold;

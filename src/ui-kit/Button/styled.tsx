@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 interface IBtn {
   width?: string;
@@ -8,11 +8,11 @@ interface IBtn {
 }
 
 export const Btn = styled.button<IBtn>`
-  ${({width, height, normal, danger, theme}) => css`
+  ${({ width, height, normal, danger, theme }) => css`
     width: ${width};
     height: ${height};
     display: flex;
-    justify-content: center;
+        justify-content: center;
     align-items: center;
     background: ${normal ? theme.colors.lightGreen : danger ? theme.colors.red : theme.color.text};
     font-size: 14px;

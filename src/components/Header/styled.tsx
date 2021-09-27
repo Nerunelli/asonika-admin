@@ -1,7 +1,7 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.div`
-  ${({theme: {shadow}}) => css`  
+  ${({ theme: { shadow } }) => css`
     height: 50px;
     padding: 0 50px;
     box-shadow: ${shadow.main} 0px 4px 10px;
@@ -17,7 +17,7 @@ export const Side = styled.div`
 `;
 
 export const Title = styled.div`
-  ${({theme: {colors}}) => css`  
+  ${({ theme: { colors } }) => css`
     font-size: 16px;
     font-weight: bold;
     color: ${colors.text};
@@ -26,14 +26,14 @@ export const Title = styled.div`
 `;
 
 export const Hello = styled.div`
-  ${({theme: {colors}}) => css`
+  ${({ theme: { colors } }) => css`
     color: ${colors.text};
     font-size: 16px;
   `}
 `;
 
 export const Username = styled.div`
-  ${({theme: {colors}}) => css`
+  ${({ theme: { colors } }) => css`
     font-size: 16px;
     font-weight: bold;
     color: ${colors.greenText};

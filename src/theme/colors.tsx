@@ -5,4 +5,4 @@ export const colors = {
   border: '#70707080',
   greenText: '#457C02',
   red: '#DA5D5D',
-}
+};

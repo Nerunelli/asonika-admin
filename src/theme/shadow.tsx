@@ -1,3 +1,1 @@
-export const shadow = {
-  main: '#0000001A',
-}
+export const shadow = { main: '#0000001A' };
