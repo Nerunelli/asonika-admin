@@ -1,8 +1,8 @@
 export const colors = {
+  greyLightAlpha: 'rgba(227, 227, 227, .5)',
+  greyDark: '#707070',
+  greyDarkAlpha: '#70707080',
   lightGreen: '#76BC21',
-  menuContainer: 'rgba(227, 227, 227, .5)',
-  text: '#707070',
-  border: '#70707080',
-  greenText: '#457C02',
+  darkGreen: '#457C02',
   red: '#DA5D5D',
 };

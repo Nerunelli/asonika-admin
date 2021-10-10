@@ -14,7 +14,7 @@ export const Dots = styled.div`
     position: relative;
     width: 5px;
     height: 5px;
-    background-color: ${colors.text};
+    background-color: ${colors.greyDark};
     border-radius: 50%;
 
     &::before,
@@ -24,7 +24,7 @@ export const Dots = styled.div`
       content: '';
       width: 5px;
       height: 5px;
-      background-color: ${colors.text};
+      background-color: ${colors.greyDark};
       border-radius: 50%;
     }
 

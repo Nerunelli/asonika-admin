@@ -9,31 +9,40 @@ export const Wrapper = styled.button`
   height: 40px;
 `;
 
-export const Lines = styled.div`
-  ${({ theme: { colors } }) => css`
+export const Lines = styled.div<{ isOpened: boolean }>`
+  ${({ theme: { colors }, isOpened }) => css`
     position: relative;
-    width: 26px;
-    height: 3px;
-    background-color: ${colors.text};
-    border-radius: 4px;
+    transition: 0.5s;
+    width: 24px;
+
+    & div {
+      margin: 4px 0;
+    }
 
     &::before,
-    &::after {
-      display: block;
-      position: absolute;
+    &::after,
+    & div {
+      width: 100%;
+      background: ${colors.greyDark};
       content: '';
-      border-radius: 4px;
-      width: 26px;
-      height: 3px;
-      background-color: ${colors.text};
+      display: block;
+      height: 2px;
+      border-radius: 3px;
+      transition: 0.5s;
     }
 
-    &::before {
-      top: -7px;
-    }
-
-    &::after {
-      bottom: -7px;
-    }
+    ${isOpened
+      ? css`
+          &::before {
+            transform: translateY(6px) rotate(135deg);
+          }
+          &::after {
+            transform: translateY(-6px) rotate(-135deg);
+          }
+          & div {
+            transform: scale(0);
+          }
+        `
+      : ''}
   `}
 `;

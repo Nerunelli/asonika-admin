@@ -16,7 +16,7 @@ export const CrumbItem = styled.div`
     }
     &:last-child {
       font-weight: bold;
-      color: ${colors.greenText};
+      color: ${colors.darkGreen};
       margin-right: 0;
     }
     &:first-child {
@@ -29,7 +29,7 @@ export const CrumbImg = styled.div`
   width: 4px;
   outline: none;
   height: 8px;
-  background: url('static/images/Arrow.svg');
+  background: url('../../../public/static/icons/Arrow.svg');
   background-repeat: no-repeat;
   background-position: center;
 `;

@@ -9,10 +9,16 @@ export const Groups: React.FC = () => {
         Категории
       </Button>
       <Button width="350px" height="58px" normal>
-        Категории
+        Сокращения
       </Button>
       <Button width="350px" height="58px" normal>
-        Категории
+        Параметры
+      </Button>
+      <Button width="350px" height="58px" normal>
+        Производители
+      </Button>
+      <Button width="350px" height="58px" normal>
+        ТУ
       </Button>
     </Wrapper>
   );

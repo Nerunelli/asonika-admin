@@ -20,14 +20,14 @@ export const Title = styled.div`
   ${({ theme: { colors } }) => css`
     font-size: 16px;
     font-weight: bold;
-    color: ${colors.text};
+    color: ${colors.greyDark};
     margin-left: 20px;
   `}
 `;
 
 export const Hello = styled.div`
   ${({ theme: { colors } }) => css`
-    color: ${colors.text};
+    color: ${colors.greyDark};
     font-size: 16px;
   `}
 `;
@@ -36,7 +36,7 @@ export const Username = styled.div`
   ${({ theme: { colors } }) => css`
     font-size: 16px;
     font-weight: bold;
-    color: ${colors.greenText};
+    color: ${colors.darkGreen};
     margin-right: 20px;
   `}
 `;

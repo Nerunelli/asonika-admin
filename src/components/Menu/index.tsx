@@ -1,13 +1,43 @@
 import React from 'react';
 import { Button } from '../../ui-kit/Button';
-import { Background, Container } from './styled';
+import { Background, Container, Wrapper } from './styled';
 
-export const Menu: React.FC = () => {
+interface IProps {
+  isOpened: boolean;
+}
+
+export const Menu: React.FC<IProps> = ({ isOpened }) => {
   return (
-    <>
-      <Background />
-
-      <Container>
+    <Wrapper isOpened={isOpened}>
+      <Background isOpened={isOpened} />
+      <Container isOpened={isOpened}>
+        <Button width="360px" height="60px" normal>
+          Категория
+        </Button>
+        <Button width="360px" height="60px" normal>
+          Категория
+        </Button>
+        <Button width="360px" height="60px" normal>
+          Категория
+        </Button>
+        <Button width="360px" height="60px" normal>
+          Категория
+        </Button>
+        <Button width="360px" height="60px" normal>
+          Категория
+        </Button>
+        <Button width="360px" height="60px" normal>
+          Категория
+        </Button>
+        <Button width="360px" height="60px" normal>
+          Категория
+        </Button>
+        <Button width="360px" height="60px" normal>
+          Категория
+        </Button>
+        <Button width="360px" height="60px" normal>
+          Категория
+        </Button>
         <Button width="360px" height="60px" normal>
           Категория
         </Button>
@@ -18,6 +48,6 @@ export const Menu: React.FC = () => {
           Категория
         </Button>
       </Container>
-    </>
+    </Wrapper>
   );
 };

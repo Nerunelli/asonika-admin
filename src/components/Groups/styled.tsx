@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
     flex-direction: column;
     width: max-content;
     padding: 30px;
-    background-color: ${colors.menuContainer};
+    background-color: ${colors.greyLightAlpha};
     border-radius: 10px;
   `}
 `;
