@@ -4,7 +4,7 @@ export const Wrapper = styled.div`
   ${({ theme: { shadow } }) => css`
     height: 50px;
     padding: 0 50px;
-    box-shadow: ${shadow.main} 0px 4px 10px;
+    box-shadow: ${shadow.main};
     display: flex;
     justify-content: space-between;
     align-items: center;

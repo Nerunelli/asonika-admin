@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 export const Container = styled.div`
   display: flex;
   align-items: center;
-  margin: 20px 50px;
+  margin: 20px 0px;
   height: 20px;
   font-size: 12px;
 `;
@@ -29,7 +29,7 @@ export const CrumbImg = styled.div`
   width: 4px;
   outline: none;
   height: 8px;
-  background: url('../../../public/static/icons/Arrow.svg');
+  background-image: url('/static/icons/Arrow.svg');
   background-repeat: no-repeat;
   background-position: center;
 `;

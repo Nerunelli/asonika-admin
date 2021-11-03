@@ -1,6 +1,6 @@
 import React from 'react';
 import { Groups } from '../../components/Groups';
-import { Input } from '../../ui-kit/Search';
+import { Input } from '../../ui-kit/Input';
 import { Container, InputContainer } from './styled';
 
 export const Main: React.FC = () => {

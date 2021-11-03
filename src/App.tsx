@@ -1,6 +1,6 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
-import { Content } from './pages';
+import { Content } from './pages/PageWrapper';
 import { theme } from './theme';
 import { BrowserRouter } from 'react-router-dom';
 

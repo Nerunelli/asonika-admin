@@ -3,6 +3,7 @@ export const colors = {
   greyDark: '#707070',
   greyDarkAlpha: '#70707080',
   lightGreen: '#76BC21',
+  lightGreenAlpha: '#76BC2133',
   darkGreen: '#457C02',
   red: '#DA5D5D',
 };

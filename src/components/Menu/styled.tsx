@@ -9,7 +9,7 @@ export const Wrapper = styled.div<{ isOpened: boolean }>`
     left: 0;
     width: 100vw;
     min-height: calc(100vh - 50px);
-    height: 100%;
+    height: calc(100vh - 50px);
     z-index: 1000;
     visibility: ${isOpened ? 'visible' : 'hidden'};
     transition: visibility 0s ${isOpened ? '0s' : transitionDuration};
@@ -37,7 +37,7 @@ export const Container = styled.div<{ isOpened: boolean }>`
     align-items: center;
     width: 420px;
     padding: 30px 0;
-    height: calc(100% - 50px);
+    height: 100%;
     background: #fff;
     z-index: 1010;
     overflow: auto;
