@@ -1,11 +1,14 @@
-import { Container, CrumbImg, CrumbItem } from "./styled";
+import { Container, CrumbImg, CrumbItem } from './styled';
+import React from 'react';
 
-export const Breadcrumbs = () => {
-  return <>
-    <Container>
-      <CrumbItem>Главная</CrumbItem>
-      <CrumbImg />
-      <CrumbItem>Главная</CrumbItem>
-    </Container>
-  </>; 
+export const Breadcrumbs: React.FC = () => {
+  return (
+    <>
+      <Container>
+        <CrumbItem>Главная</CrumbItem>
+        <CrumbImg />
+        <CrumbItem>Главная</CrumbItem>
+      </Container>
+    </>
+  );
 };

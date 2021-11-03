@@ -1,8 +1,7 @@
-import styled, { css } from "styled-components";
-
+import styled, { css } from 'styled-components';
 
 export const Button = styled.button`
-  ${({theme: {colors}}) => css`
+  ${({ theme: { colors } }) => css`
     font-size: 14px;
     font-weight: bold;
     color: #fff;

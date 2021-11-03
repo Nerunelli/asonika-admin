@@ -1,9 +1,10 @@
+import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { Content } from './pages';
 import { theme } from './theme';
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from 'react-router-dom';
 
-function App() {
+const App: React.FC = () => {
   return (
     <>
       <BrowserRouter>
@@ -13,6 +14,6 @@ function App() {
       </BrowserRouter>
     </>
   );
-}
+};
 
 export default App;

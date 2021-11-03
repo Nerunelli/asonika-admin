@@ -1,25 +1,22 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
-  ${({theme: {colors}}) => css`
-    display: flex;
-    align-items: center;
-    margin: 20px 50px;
-    height: 20px;
-    font-size: 12px;
-  `}
+  display: flex;
+  align-items: center;
+  margin: 20px 50px;
+  height: 20px;
+  font-size: 12px;
 `;
 
 export const CrumbItem = styled.div`
-  ${({theme: {colors}}) => css`
+  ${({ theme: { colors } }) => css`
     margin-right: 8px;
     margin-left: 8px;
     &::after {
-
     }
     &:last-child {
       font-weight: bold;
-      color: ${colors.greenText};
+      color: ${colors.darkGreen};
       margin-right: 0;
     }
     &:first-child {
@@ -32,7 +29,7 @@ export const CrumbImg = styled.div`
   width: 4px;
   outline: none;
   height: 8px;
-  background: url('static/images/Arrow.svg');
+  background: url('../../../public/static/icons/Arrow.svg');
   background-repeat: no-repeat;
   background-position: center;
 `;

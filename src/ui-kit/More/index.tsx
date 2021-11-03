@@ -1,6 +1,7 @@
-import { Dots, Wrapper } from "./styled";
+import { Dots, Wrapper } from './styled';
+import React from 'react';
 
-export const More = () => {
+export const More: React.FC = () => {
   return (
     <Wrapper>
       <Dots />

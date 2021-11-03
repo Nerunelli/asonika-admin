@@ -1,11 +1,19 @@
-import { Lines, Wrapper } from "./styled"
+import { Lines, Wrapper } from './styled';
+import React from 'react';
 
-export const Burger = () => {
+interface Props {
+  onClick: () => void;
+  isOpened: boolean;
+}
+
+export const Burger: React.FC<Props> = ({ onClick, isOpened }) => {
   return (
     <>
-    <Wrapper>
-      <Lines />
-    </Wrapper>
+      <Wrapper onClick={onClick}>
+        <Lines isOpened={isOpened}>
+          <div />
+        </Lines>
+      </Wrapper>
     </>
-  )
-}
+  );
+};
