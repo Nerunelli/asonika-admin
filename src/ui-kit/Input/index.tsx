@@ -17,6 +17,7 @@ interface Props {
   label?: string | ReactNode;
   hasError?: boolean;
   onlyBottom?: boolean;
+  labelFontSize?: number;
 }
 
 export const Input: React.FC<Props> = ({
@@ -27,10 +28,17 @@ export const Input: React.FC<Props> = ({
   label,
   hasError,
   onlyBottom,
+  labelFontSize = 12,
 }) => {
   return (
     <>
-      <Wrapper height={height} width={width} isError={hasError}>
+      <Wrapper
+        hasLabel={!!label}
+        height={height}
+        width={width}
+        isError={hasError}
+        labelFontSize={labelFontSize}
+      >
         <InputUI placeholder={placeholder} />
         {isSearch && (
           <SearchIconWrapper>
@@ -38,8 +46,12 @@ export const Input: React.FC<Props> = ({
           </SearchIconWrapper>
         )}
         {label && !onlyBottom && (
-          <LabelWrapper>
-            {typeof label === 'string' ? <LabelText>{label}</LabelText> : label}
+          <LabelWrapper fontSize={labelFontSize}>
+            {typeof label === 'string' ? (
+              <LabelText fontSize={labelFontSize}>{label}</LabelText>
+            ) : (
+              label
+            )}
           </LabelWrapper>
         )}
         <Border onlyBottom={onlyBottom} />

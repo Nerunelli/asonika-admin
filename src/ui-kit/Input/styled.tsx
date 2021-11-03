@@ -36,14 +36,21 @@ export const Border = styled.div<{ onlyBottom?: boolean }>`
   `}
 `;
 
-export const Wrapper = styled.div<{ width: string; height: string; isError?: boolean }>`
-  ${({ theme: { colors }, height, width, isError }) => css`
+export const Wrapper = styled.div<{
+  width: string;
+  height: string;
+  isError?: boolean;
+  hasLabel?: boolean;
+  labelFontSize: number;
+}>`
+  ${({ theme: { colors }, height, width, isError, hasLabel, labelFontSize }) => css`
     position: relative;
     display: flex;
     align-items: center;
     height: ${height};
     width: ${width};
     padding-right: 10px;
+    ${hasLabel ? `margin-top: ${labelFontSize / 2}px;` : ''};
 
     ${InputUI}:focus + ${SearchIconWrapper} > ${SearchIcon} {
       background-color: ${colors.darkGreen};
@@ -85,16 +92,19 @@ export const InputUI = styled.input`
   `}
 `;
 
-export const LabelWrapper = styled.div`
-  position: absolute;
-  padding: 0 2px;
-  top: -25%;
-  left: 12px;
-  background-color: #fff;
-  transform: translateY(25%);
+export const LabelWrapper = styled.div<{ fontSize: number }>`
+  ${({ fontSize }) => css`
+    position: absolute;
+    padding: 0 2px;
+    left: 12px;
+    background-color: #fff;
+    top: -${fontSize / 2}px;
+  `}
 `;
 
-export const LabelText = styled.div`
-  font-size: 12px;
-  color: ${({ theme: { colors } }) => colors.greyDark};
+export const LabelText = styled.div<{ fontSize: number }>`
+  ${({ theme: { colors }, fontSize }) => css`
+    font-size: ${fontSize}px;
+    color: ${colors.greyDark};
+  `}
 `;
