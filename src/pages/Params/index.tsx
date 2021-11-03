@@ -1,18 +1,37 @@
 import React from 'react';
 import { Button } from '../../ui-kit/Button';
-import { Container } from './styled';
+import { ButtonsWrap, ItemsContainer, ItemWrapper, ParamsContainer } from './styled';
+import { ParamsItem } from '../../components/ParamsItem';
+import { ParamForm } from '../../components/ParamForm';
 
-export const Params: React.FC = () => {
+interface IContent {
+  title: string;
+  link?: string;
+}
+
+interface IProps {
+  content: IContent[];
+}
+
+export const Params: React.FC<IProps> = ({ content }) => {
   return (
     <>
-      <Container>
-        <Button normal width="220px">
-          Добавить параметр
-        </Button>
-        <Button danger width="220px">
+      <ButtonsWrap>
+        <Button width="220px">Добавить параметр</Button>
+        <Button variant="danger" width="220px">
           Удалить выбранные
         </Button>
-      </Container>
+      </ButtonsWrap>
+      <ParamsContainer>
+        <ItemsContainer>
+          {content.map(({ title }, i) => (
+            <ItemWrapper key={`paramItem-${title}${i}`}>
+              <ParamsItem>{title}</ParamsItem>
+            </ItemWrapper>
+          ))}
+        </ItemsContainer>
+        <ParamForm />
+      </ParamsContainer>
     </>
   );
 };

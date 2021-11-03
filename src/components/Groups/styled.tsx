@@ -10,3 +10,10 @@ export const Wrapper = styled.div`
     border-radius: 10px;
   `}
 `;
+
+export const ButtonWrapper = styled.div`
+  margin-bottom: 20px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+`;

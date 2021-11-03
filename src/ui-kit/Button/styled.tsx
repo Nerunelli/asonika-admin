@@ -3,12 +3,11 @@ import styled, { css } from 'styled-components';
 interface IBtn {
   width?: string;
   height?: string;
-  normal?: boolean;
-  danger?: boolean;
+  variant?: string;
 }
 
 export const Btn = styled.button<IBtn>`
-  ${({ width, height, normal, danger, theme }) => css`
+  ${({ width, height, variant, theme }) => css`
     min-width: ${width};
     width: ${width};
     min-height: ${height};
@@ -16,7 +15,11 @@ export const Btn = styled.button<IBtn>`
     display: flex;
     justify-content: center;
     align-items: center;
-    background: ${normal ? theme.colors.lightGreen : danger ? theme.colors.red : theme.color.text};
+    background: ${variant === 'normal'
+      ? theme.colors.lightGreen
+      : variant === 'danger'
+      ? theme.colors.red
+      : theme.color.text};
     font-size: 14px;
     font-weight: bold;
     color: #fff;
@@ -24,9 +27,6 @@ export const Btn = styled.button<IBtn>`
     border: none;
     cursor: pointer;
     user-select: none;
-
-    margin-bottom: 20px;
-
     &:last-child {
       margin-bottom: 0;
     }

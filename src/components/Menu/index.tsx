@@ -11,40 +11,34 @@ export const Menu: React.FC<IProps> = ({ isOpened }) => {
     <Wrapper isOpened={isOpened}>
       <Background isOpened={isOpened} />
       <Container isOpened={isOpened}>
-        <Button width="360px" height="60px" normal>
+        <Button width="360px" height="60px">
           Категория
         </Button>
-        <Button width="360px" height="60px" normal>
+        <Button width="360px" height="60px">
           Категория
         </Button>
-        <Button width="360px" height="60px" normal>
+        <Button width="360px" height="60px">
           Категория
         </Button>
-        <Button width="360px" height="60px" normal>
+        <Button width="360px" height="60px">
           Категория
         </Button>
-        <Button width="360px" height="60px" normal>
+        <Button width="360px" height="60px">
           Категория
         </Button>
-        <Button width="360px" height="60px" normal>
+        <Button width="360px" height="60px">
           Категория
         </Button>
-        <Button width="360px" height="60px" normal>
+        <Button width="360px" height="60px">
           Категория
         </Button>
-        <Button width="360px" height="60px" normal>
+        <Button width="360px" height="60px">
           Категория
         </Button>
-        <Button width="360px" height="60px" normal>
+        <Button width="360px" height="60px">
           Категория
         </Button>
-        <Button width="360px" height="60px" normal>
-          Категория
-        </Button>
-        <Button width="360px" height="60px" normal>
-          Категория
-        </Button>
-        <Button width="360px" height="60px" normal>
+        <Button width="360px" height="60px">
           Категория
         </Button>
       </Container>

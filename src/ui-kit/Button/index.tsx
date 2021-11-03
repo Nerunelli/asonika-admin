@@ -4,19 +4,19 @@ import { Btn } from './styled';
 interface IProps {
   width?: string;
   height?: string;
-  normal?: boolean;
-  danger?: boolean;
+  variant?: 'normal' | 'danger';
+  className?: string;
 }
 
 export const Button: React.FC<IProps> = ({
   children,
   width = '100px',
   height = '38px',
-  normal = false,
-  danger = false,
+  variant = 'normal',
+  className,
 }) => {
   return (
-    <Btn width={width} height={height} normal={normal} danger={danger}>
+    <Btn className={className} width={width} height={height} variant={variant}>
       {children}
     </Btn>
   );
