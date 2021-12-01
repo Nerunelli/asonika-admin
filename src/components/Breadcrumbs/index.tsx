@@ -1,13 +1,22 @@
 import { Container, CrumbImg, CrumbItem } from './styled';
-import React from 'react';
+import React, { Fragment } from 'react';
+import { BreadcrumbsData } from '../../utls/types';
 
-export const Breadcrumbs: React.FC = () => {
+interface IProps {
+  data?: BreadcrumbsData[];
+}
+
+export const Breadcrumbs: React.FC<IProps> = ({ data }) => {
   return (
     <>
       <Container>
-        <CrumbItem>Главная</CrumbItem>
-        <CrumbImg />
-        <CrumbItem>Главная</CrumbItem>
+        <CrumbItem to="/">Главная</CrumbItem>
+        {data?.map(({ link, title }, idx) => (
+          <Fragment key={`BreadcrumbItem-${idx}`}>
+            <CrumbImg />
+            <CrumbItem to={link}>{title}</CrumbItem>
+          </Fragment>
+        ))}
       </Container>
     </>
   );

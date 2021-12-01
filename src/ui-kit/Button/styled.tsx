@@ -30,5 +30,8 @@ export const Btn = styled.button<IBtn>`
     &:last-child {
       margin-bottom: 0;
     }
+    &:active {
+      background: ${variant === 'normal' ? theme.colors.darkGreen : theme.colors.darkRed};
+    }
   `}
 `;

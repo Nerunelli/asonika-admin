@@ -2,10 +2,12 @@ import React from 'react';
 import { Groups } from '../../components/Groups';
 import { Input } from '../../ui-kit/Input';
 import { Container, InputContainer } from './styled';
+import { Breadcrumbs } from '../../components/Breadcrumbs';
 
 export const Main: React.FC = () => {
   return (
     <Container>
+      <Breadcrumbs />
       <Groups />
       <InputContainer>
         <Input placeholder="Поиск по категориям" isSearch />

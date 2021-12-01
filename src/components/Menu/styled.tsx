@@ -45,3 +45,11 @@ export const Container = styled.div<{ isOpened: boolean }>`
     transition: ${transitionDuration} margin-left ease-in-out;
   `}
 `;
+
+export const BtnWrapper = styled.div`
+  margin-bottom: 20px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+`;
