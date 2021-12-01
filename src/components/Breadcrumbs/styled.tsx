@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
@@ -8,12 +9,13 @@ export const Container = styled.div`
   font-size: 12px;
 `;
 
-export const CrumbItem = styled.div`
+export const CrumbItem = styled(Link)`
   ${({ theme: { colors } }) => css`
     margin-right: 8px;
     margin-left: 8px;
-    &::after {
-    }
+    color: ${colors.greyDark};
+    text-decoration: none;
+
     &:last-child {
       font-weight: bold;
       color: ${colors.darkGreen};
@@ -32,4 +34,22 @@ export const CrumbImg = styled.div`
   background-image: url('/static/icons/Arrow.svg');
   background-repeat: no-repeat;
   background-position: center;
+`;
+
+export const StyledLink = styled(Link)`
+  ${({ theme: { colors } }) => css`
+    color: ${colors.greyDark};
+    text-decoration: none;
+    margin-right: 8px;
+    margin-left: 8px;
+
+    &:last-child {
+      font-weight: bold;
+      color: ${colors.darkGreen};
+      margin-right: 0;
+    }
+    &:first-child {
+      margin-left: 0;
+    }
+  `}
 `;

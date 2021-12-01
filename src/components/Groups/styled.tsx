@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.div`
@@ -11,8 +12,10 @@ export const Wrapper = styled.div`
   `}
 `;
 
-export const ButtonWrapper = styled.div`
+export const ButtonWrapper = styled(Link)`
   margin-bottom: 20px;
+  text-decoration: none;
+
   &:last-child {
     margin-bottom: 0;
   }

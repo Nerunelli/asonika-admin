@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '../../ui-kit/Button';
-import { Background, Container, Wrapper } from './styled';
+import { Background, BtnWrapper, Container, Wrapper } from './styled';
 
 interface IProps {
   isOpened: boolean;
@@ -11,36 +11,36 @@ export const Menu: React.FC<IProps> = ({ isOpened }) => {
     <Wrapper isOpened={isOpened}>
       <Background isOpened={isOpened} />
       <Container isOpened={isOpened}>
-        <Button width="360px" height="60px">
-          Категория
-        </Button>
-        <Button width="360px" height="60px">
-          Категория
-        </Button>
-        <Button width="360px" height="60px">
-          Категория
-        </Button>
-        <Button width="360px" height="60px">
-          Категория
-        </Button>
-        <Button width="360px" height="60px">
-          Категория
-        </Button>
-        <Button width="360px" height="60px">
-          Категория
-        </Button>
-        <Button width="360px" height="60px">
-          Категория
-        </Button>
-        <Button width="360px" height="60px">
-          Категория
-        </Button>
-        <Button width="360px" height="60px">
-          Категория
-        </Button>
-        <Button width="360px" height="60px">
-          Категория
-        </Button>
+        <BtnWrapper>
+          <Button width="360px" height="60px">
+            Категория
+          </Button>
+        </BtnWrapper>
+        <BtnWrapper>
+          <Button width="360px" height="60px">
+            Категория
+          </Button>
+        </BtnWrapper>
+        <BtnWrapper>
+          <Button width="360px" height="60px">
+            Категория
+          </Button>
+        </BtnWrapper>
+        <BtnWrapper>
+          <Button width="360px" height="60px">
+            Категория
+          </Button>
+        </BtnWrapper>
+        <BtnWrapper>
+          <Button width="360px" height="60px">
+            Категория
+          </Button>
+        </BtnWrapper>
+        <BtnWrapper>
+          <Button width="360px" height="60px">
+            Категория
+          </Button>
+        </BtnWrapper>
       </Container>
     </Wrapper>
   );
