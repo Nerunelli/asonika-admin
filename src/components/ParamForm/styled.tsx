@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-export const Container = styled.div`
+export const Container = styled.form`
   ${({ theme: { shadow } }) => css`
     max-width: 650px;
     width: 100%;

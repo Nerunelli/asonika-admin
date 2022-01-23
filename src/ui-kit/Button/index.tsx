@@ -6,6 +6,7 @@ interface IProps {
   height?: string;
   variant?: 'normal' | 'danger';
   className?: string;
+  isForm?: boolean;
 }
 
 export const Button: React.FC<IProps> = ({
@@ -13,10 +14,17 @@ export const Button: React.FC<IProps> = ({
   width = '100px',
   height = '38px',
   variant = 'normal',
+  isForm,
   className,
 }) => {
   return (
-    <Btn className={className} width={width} height={height} variant={variant}>
+    <Btn
+      className={className}
+      width={width}
+      height={height}
+      variant={variant}
+      type={isForm ? 'submit' : 'button'}
+    >
       {children}
     </Btn>
   );
