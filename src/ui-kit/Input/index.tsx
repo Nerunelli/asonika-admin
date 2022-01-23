@@ -7,7 +7,10 @@ import {
   SearchIconWrapper,
   Wrapper,
 } from './styled';
-import React, { ReactNode } from 'react';
+import React, { ChangeEvent, ReactNode } from 'react';
+
+// eslint-disable-next-line no-unused-vars
+type onChangeFunc = (event: ChangeEvent<HTMLInputElement>) => void;
 
 interface Props {
   isSearch?: boolean;
@@ -18,6 +21,8 @@ interface Props {
   hasError?: boolean;
   onlyBottom?: boolean;
   labelFontSize?: number;
+  onChange?: onChangeFunc;
+  value?: string;
 }
 
 export const Input: React.FC<Props> = ({
@@ -29,6 +34,8 @@ export const Input: React.FC<Props> = ({
   hasError,
   onlyBottom,
   labelFontSize = 12,
+  onChange,
+  value,
 }) => {
   return (
     <>
@@ -39,7 +46,7 @@ export const Input: React.FC<Props> = ({
         isError={hasError}
         labelFontSize={labelFontSize}
       >
-        <InputUI placeholder={placeholder} />
+        <InputUI placeholder={placeholder} value={value} onChange={onChange} />
         {isSearch && (
           <SearchIconWrapper>
             <SearchIcon />

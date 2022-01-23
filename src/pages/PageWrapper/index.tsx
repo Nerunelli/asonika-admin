@@ -20,7 +20,7 @@ export const Content: React.FC = () => {
             <Params content={MockParamsContent} />
           </Route>
           <Route path="/reductions" exact>
-            <Reductions content={MockParamsContent} />
+            <Reductions />
           </Route>
         </Switch>
       </Container>

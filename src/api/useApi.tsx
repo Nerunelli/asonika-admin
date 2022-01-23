@@ -1,6 +1,6 @@
-import { UseFetch, useFetch as IUseFetch, UseFetchArgs } from 'use-http';
-import { APILink } from "./API";
+import axios from 'axios';
+import { APILink } from './API';
 
-export const useFetch = <T extends unknown>(...args: UseFetchArgs): UseFetch<T> => {
-  return IUseFetch(APILink, ...args);
-};
+export const api = axios.create({
+  baseURL: APILink,
+});

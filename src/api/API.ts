@@ -1,7 +1,6 @@
-import axios, { AxiosResponse } from 'axios';
+export const APILink = 'http://localhost:4000/api';
 
-export type ApiResponse<T = unknown> = Promise<AxiosResponse<T>>;
-
-export const API = axios.create({
-  baseURL: 'http://84.201.165.118:8080/api',
-});
+export const endpoints = {
+  groups: `/measurement/groups`,
+  units: `/measurement/units`,
+};
