@@ -7,6 +7,7 @@ interface IProps {
   variant?: 'normal' | 'danger';
   className?: string;
   isForm?: boolean;
+  onClick?: () => void;
 }
 
 export const Button: React.FC<IProps> = ({
@@ -16,6 +17,7 @@ export const Button: React.FC<IProps> = ({
   variant = 'normal',
   isForm,
   className,
+  onClick,
 }) => {
   return (
     <Btn
@@ -24,6 +26,7 @@ export const Button: React.FC<IProps> = ({
       height={height}
       variant={variant}
       type={isForm ? 'submit' : 'button'}
+      onClick={onClick}
     >
       {children}
     </Btn>

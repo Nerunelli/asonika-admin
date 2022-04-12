@@ -7,6 +7,7 @@ import { Main } from '../main';
 import { Params } from '../Params';
 import { Reductions } from '../Reductions';
 import { Container } from './styled';
+import { Producers } from '../Producers';
 // import { Main } from '../main';
 
 export const Content: React.FC = () => {
@@ -21,6 +22,9 @@ export const Content: React.FC = () => {
           </Route>
           <Route path="/reductions" exact>
             <Reductions />
+          </Route>
+          <Route path="/producers" exact>
+            <Producers />
           </Route>
         </Switch>
       </Container>

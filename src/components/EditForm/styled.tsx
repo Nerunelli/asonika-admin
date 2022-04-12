@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-export const Container = styled.div`
+export const Container = styled.form`
   ${({ theme: { shadow } }) => css`
     max-width: 650px;
     width: 100%;
@@ -8,7 +8,7 @@ export const Container = styled.div`
     box-shadow: ${shadow.main};
     padding: 20px;
     height: 100%;
-    margin-left: 30px;
+    //margin-left: 30px;
   `}
 `;
 

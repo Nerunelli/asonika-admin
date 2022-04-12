@@ -22,6 +22,6 @@ export const ItemWrapper = styled.button`
   }
 `;
 
-export const ReductionsContainer = styled.div`
+export const ProducersContainer = styled.div`
   display: flex;
 `;

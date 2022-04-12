@@ -14,11 +14,15 @@ const App: React.FC = () => {
       api.post('login/', { username: 'admin', password: 'admin' }).catch(console.error);
     } else {
       api.defaults.headers.post['X-CSRFToken'] = cookies.csrftoken;
+      api.defaults.headers.patch['X-CSRFToken'] = cookies.csrftoken;
+      api.defaults.headers.delete['X-CSRFToken'] = cookies.csrftoken;
     }
   }, [cookies]);
 
   if (cookies.csrftoken) {
     api.defaults.headers.post['X-CSRFToken'] = cookies.csrftoken;
+    api.defaults.headers.patch['X-CSRFToken'] = cookies.csrftoken;
+    api.defaults.headers.delete['X-CSRFToken'] = cookies.csrftoken;
   }
 
   return (

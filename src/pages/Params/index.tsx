@@ -4,6 +4,7 @@ import { ButtonsWrap, ItemsContainer, ItemWrapper, ParamsContainer } from './sty
 import { ParamsItem } from '../../components/ParamsItem';
 import { ParamForm } from '../../components/ParamForm';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
+// import { EditForm } from '../../components/EditForm';
 
 interface IContent {
   title: string;
@@ -40,6 +41,12 @@ export const Params: React.FC<IProps> = ({ content }) => {
           ))}
         </ItemsContainer>
         <ParamForm />
+        {/* <EditForm */}
+        {/*  group={selected} */}
+        {/*  handleSubmit={handleSubmit} */}
+        {/*  handleDelete={handleDelete} */}
+        {/*  params */}
+        {/* /> */}
       </ParamsContainer>
     </>
   );
