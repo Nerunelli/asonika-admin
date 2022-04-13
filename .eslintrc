@@ -96,7 +96,7 @@
 		"react/prefer-stateless-function": "warn",
 		"global-require": "off",
 		"prettier/prettier": [
-			"error"
+			"warn"
 		],
 		"react/jsx-props-no-spreading": "off",
 		"react/jsx-curly-newline": "off",

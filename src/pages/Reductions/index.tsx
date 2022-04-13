@@ -61,6 +61,8 @@ export const Reductions: React.FC = () => {
 
   const onSelect = (group: { uuid: string; name: string; description: string }) => {
     setSelected(group);
+    // eslint-disable-next-line no-console
+    console.log(group.uuid);
   };
 
   const handleSubmit = async (name: string, description: string) => {
@@ -85,6 +87,7 @@ export const Reductions: React.FC = () => {
           { uuid: newGroup.uuid, name: newGroup.name, description: newGroup.description },
         ]);
       }
+      setSelected(null);
     }
   };
 
@@ -109,13 +112,15 @@ export const Reductions: React.FC = () => {
         </Button>
       </ButtonsWrap>
       <ReductionsContainer>
-        <ItemsContainer>
-          {groups.map((group, i) => (
-            <ItemWrapper onClick={() => onSelect(group)} key={`paramItem-${group.name}${i}`}>
-              <ParamsItem>{group.name}</ParamsItem>
-            </ItemWrapper>
-          ))}
-        </ItemsContainer>
+        {groups.length ? (
+          <ItemsContainer>
+            {groups.map((group, i) => (
+              <ItemWrapper onClick={() => onSelect(group)} key={`paramItem-${group.name}${i}`}>
+                <ParamsItem>{group.name}</ParamsItem>
+              </ItemWrapper>
+            ))}
+          </ItemsContainer>
+        ) : null}
         {selected && (
           <EditForm
             group={selected}

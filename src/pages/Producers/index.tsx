@@ -120,7 +120,7 @@ export const Producers: React.FC = () => {
             {manufacturers.map((manufacturer, i) => (
               <ItemWrapper
                 onClick={() => onSelect(manufacturer)}
-                key={`paramItem-${manufacturer.name}${i}`}
+                key={`manufacturerItem-${manufacturer.name}${i}`}
               >
                 <ParamsItem>{manufacturer.name}</ParamsItem>
               </ItemWrapper>
