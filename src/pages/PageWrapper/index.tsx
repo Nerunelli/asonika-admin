@@ -1,12 +1,13 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Header } from '../../components/Header';
-import { MockParamsContent } from '../../utls/mocks';
+// import { MockParamsContent } from '../../utls/mocks';
 import { Main } from '../main';
 // import { Menu } from "../components/Menu";
 import { Params } from '../Params';
 import { Reductions } from '../Reductions';
 import { Container } from './styled';
+import { Producers } from '../Producers';
 // import { Main } from '../main';
 
 export const Content: React.FC = () => {
@@ -17,10 +18,13 @@ export const Content: React.FC = () => {
         <Switch>
           <Route path="/" exact component={Main} />
           <Route path="/params" exact>
-            <Params content={MockParamsContent} />
+            <Params />
           </Route>
           <Route path="/reductions" exact>
-            <Reductions content={MockParamsContent} />
+            <Reductions />
+          </Route>
+          <Route path="/producers" exact>
+            <Producers />
           </Route>
         </Switch>
       </Container>
