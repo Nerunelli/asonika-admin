@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
 import { ParamsItem } from '../../components/ParamsItem';
-import { EditForm } from '../../components/EditForm';
 import { Button } from '../../ui-kit/Button';
 import { ButtonsWrap, ItemsContainer, ItemWrapper, ProducersContainer } from './styled';
 import { api } from '../../api/useApi';
+import { EditProducerForm } from '../../components/EditProducerForm';
 
 export interface IManufacturer {
   uuid: string;
@@ -41,7 +41,7 @@ export const Producers: React.FC = () => {
 
   const updateManufacturer = async ({ uuid, description, name }: IManufacturer) => {
     try {
-      await api.patch<{ data: IManufacturer }>(`/manufacturer/${uuid}/`, { description, name });
+      await api.put<{ data: IManufacturer }>(`/manufacturer/${uuid}/`, { description, name });
     } catch (e) {}
   };
 
@@ -128,7 +128,11 @@ export const Producers: React.FC = () => {
           </ItemsContainer>
         ) : null}
         {selected && (
-          <EditForm group={selected} handleSubmit={handleSubmit} handleDelete={handleDelete} />
+          <EditProducerForm
+            group={selected}
+            handleSubmit={handleSubmit}
+            handleDelete={handleDelete}
+          />
         )}
       </ProducersContainer>
     </>

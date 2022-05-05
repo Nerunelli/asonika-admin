@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
 import { ParamsItem } from '../../components/ParamsItem';
-import { EditForm } from '../../components/EditForm';
+// import { EditForm } from '../../components/EditForm';
 import { Button } from '../../ui-kit/Button';
 import { ButtonsWrap, ItemsContainer, ItemWrapper, ReductionsContainer } from './styled';
 import { api } from '../../api/useApi';
+import { EditReductionForm } from '../../components/EditReductionForm';
 
 export interface IGroup {
   uuid: string;
@@ -41,7 +42,7 @@ export const Reductions: React.FC = () => {
 
   const updateMeasurementGroup = async ({ uuid, description, name }: IGroup) => {
     try {
-      await api.patch<{ data: IGroup }>(`/measurement/group/${uuid}/`, { description, name });
+      await api.put<{ data: IGroup }>(`/measurement/group/${uuid}/`, { description, name });
     } catch (e) {}
   };
 
@@ -62,7 +63,7 @@ export const Reductions: React.FC = () => {
   const onSelect = (group: { uuid: string; name: string; description: string }) => {
     setSelected(group);
     // eslint-disable-next-line no-console
-    console.log(group.uuid);
+    // console.log(group.uuid);
   };
 
   const handleSubmit = async (name: string, description: string) => {
@@ -122,11 +123,10 @@ export const Reductions: React.FC = () => {
           </ItemsContainer>
         ) : null}
         {selected && (
-          <EditForm
+          <EditReductionForm
             group={selected}
             handleSubmit={handleSubmit}
             handleDelete={handleDelete}
-            reductions
           />
         )}
       </ReductionsContainer>

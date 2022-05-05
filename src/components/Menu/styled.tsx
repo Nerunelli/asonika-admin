@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { Link } from "react-router-dom";
 
 const transitionDuration = '.4s';
 
@@ -46,8 +47,9 @@ export const Container = styled.div<{ isOpened: boolean }>`
   `}
 `;
 
-export const BtnWrapper = styled.div`
+export const BtnWrapper = styled(Link)`
   margin-bottom: 20px;
+  text-decoration: none;
 
   &:last-child {
     margin-bottom: 0;

@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
     flex-direction: column;
     width: max-content;
     padding: 30px;
-    background-color: ${colors.greyLightAlpha};
+    background-color: ${colors.greySuperLightAlpha};
     border-radius: 10px;
   `}
 `;

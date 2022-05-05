@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-// import { ButtonsWrapper, Container, Wrapper } from '../ParamForm/styled';
 import { Input } from '../../ui-kit/Input';
 import { TextArea } from '../../ui-kit/TextArea';
 import { Button } from '../../ui-kit/Button';
-// import { ReductionTable } from '../ReductionTable';
+import { ReductionTable } from '../ReductionTable';
 import { IGroup } from '../../pages/Reductions';
 import { ButtonsWrapper, Container, Wrapper } from './styled';
-import { Select } from '../../ui-kit/Select';
+import { RangeInput } from '../../ui-kit/RangeInput';
 
 // eslint-disable-next-line no-unused-vars
 type onSubmitFunc = (name: string, description: string) => void;
@@ -17,20 +16,15 @@ interface IProps {
   handleSubmit: onSubmitFunc;
   handleDelete: onDeleteFunc;
   group: IGroup;
-  // reductions?: boolean;
-  params?: boolean;
 }
 
-export const EditForm: React.FC<IProps> = ({
-  handleSubmit,
-  handleDelete,
-  group,
-  // reductions,
-  params,
-}) => {
+export const EditReductionForm: React.FC<IProps> = ({ handleSubmit, handleDelete, group }) => {
   const [name, setName] = useState('');
-  const [reduction, setReduction] = useState('');
   const [description, setDescription] = useState('');
+  // eslint-disable-next-line no-unused-vars
+  const [leftRangeValue, setLeftRangeValue] = useState('');
+  // eslint-disable-next-line no-unused-vars
+  const [rightRangeValue, setRightRangeValue] = useState('');
 
   useEffect(() => {
     setName(group.name);
@@ -54,32 +48,19 @@ export const EditForm: React.FC<IProps> = ({
             onChange={e => setName(e.target.value)}
           />
         </Wrapper>
-        {params && (
-          <Wrapper>
-            <Input
-              label="Сокращение"
-              placeholder="Введите текст"
-              width="250px"
-              value={reduction}
-              onChange={e => setReduction(e.target.value)}
-            />
-          </Wrapper>
-        )}
         <Wrapper>
           <TextArea value={description} onChange={e => setDescription(e.target.value)} />
         </Wrapper>
-        {/* <Wrapper>{reductions && <ReductionTable />}</Wrapper> */}
-        {params && (
-          <>
-            <Wrapper>
-              <Select placeholder="Тип поля" />
-            </Wrapper>
-            <Wrapper>Привязанная единица измерения:</Wrapper>
-            <Wrapper>
-              <Select placeholder="Единица измерения" />
-            </Wrapper>
-          </>
-        )}
+        <ReductionTable group={group} />
+        <Wrapper>
+          <RangeInput
+            leftValue={leftRangeValue}
+            onChangeLeft={e => setLeftRangeValue(e.target.value)}
+            onChangeRight={e => setRightRangeValue(e.target.value)}
+            rightValue={rightRangeValue}
+            // disabled
+          />
+        </Wrapper>
         <ButtonsWrapper>
           <Button width="120px" isForm>
             Сохранить

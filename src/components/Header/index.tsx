@@ -30,7 +30,7 @@ export const Header: React.FC = () => {
         </Side>
         <Side>
           <Hello>Вы вошли как&nbsp;</Hello>
-          <Username>Username</Username>
+          <Username>Иванов Иван</Username>
           <More />
         </Side>
       </Wrapper>

@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Button } from '../../ui-kit/Button';
 import { ButtonsWrap, ItemsContainer, ItemWrapper, ParamsContainer } from './styled';
 import { ParamsItem } from '../../components/ParamsItem';
-// import { ParamForm } from '../../components/ParamForm';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
 import { api } from '../../api/useApi';
-import { EditForm } from '../../components/EditForm';
+import { EditParamForm } from '../../components/EditParamForm';
+import { IGroup } from '../Reductions';
 
 export interface IParam {
   uuid: string;
-  measurement_group?: string;
-  type?: number;
+  measurement_group: IGroup;
+  type: number;
   name: string;
   description: string;
 }
@@ -29,8 +29,8 @@ export const Params: React.FC = () => {
   const createParam = async (
     name: string,
     description: string,
-    measurement_group?: string,
-    type?: number,
+    measurement_group: string,
+    type: number,
   ): Promise<IParam | null> => {
     try {
       const res = await api.post('/parameter/', {
@@ -48,7 +48,7 @@ export const Params: React.FC = () => {
 
   const updateParam = async ({ uuid, description, name, type }: IParam) => {
     try {
-      await api.patch<{ data: IParam }>(`/parameter/${uuid}/`, {
+      await api.put<{ data: IParam }>(`/parameter/${uuid}/`, {
         description,
         name,
         type,
@@ -64,7 +64,7 @@ export const Params: React.FC = () => {
   };
 
   useEffect(() => {
-    // createParam('3 group', '3 description', '50247ee4-d508-4b2b-9845-c9d5ea640718', 1).catch(
+    // createParam('3 group', '3 description', 'd96818c1-8432-42ac-9967-b4594d6c8372', 1).catch(
     //   console.error,
     // );
 
@@ -72,38 +72,39 @@ export const Params: React.FC = () => {
   }, []);
 
   const addParam = () =>
-    setSelected({ uuid: '', name: '', description: '', type: 1, measurement_group: '' });
+    setSelected({
+      uuid: '',
+      name: '',
+      description: '',
+      type: 1,
+      measurement_group: { uuid: '', name: '', description: '' },
+    });
 
-  const onSelect = (param: {
-    uuid: string;
-    name: string;
-    description: string;
-    measurement_group?: string;
-    type?: number;
-  }) => {
+  const onSelect = (param: IParam) => {
     setSelected(param);
-    // eslint-disable-next-line no-console
-    console.log(param);
   };
 
+  // TODO: No pascal
   const handleSubmit = async (
     name: string,
     description: string,
-    measurement_group?: string,
-    type?: number,
+    measurement_group: IGroup,
+    type: number,
   ) => {
     // eslint-disable-next-line no-console
-    console.log(name, description);
+    console.log(measurement_group);
 
     if (selected?.uuid) {
-      await updateParam({ uuid: selected.uuid, name, description, type });
+      await updateParam({ uuid: selected.uuid, name, description, type, measurement_group });
       setParams(param =>
         param.map(param =>
-          param.uuid === selected.uuid ? { uuid: param.uuid, name, description, type } : param,
+          param.uuid === selected.uuid
+            ? { uuid: param.uuid, name, description, type, measurement_group }
+            : param,
         ),
       );
     } else {
-      const newParam = await createParam(name, description, measurement_group, type);
+      const newParam = await createParam(name, description, measurement_group.uuid, type);
       // eslint-disable-next-line no-console
       console.log(newParam);
       if (newParam) {
@@ -124,7 +125,6 @@ export const Params: React.FC = () => {
   const handleDelete = async (uuid: string) => {
     setParams(params => params.filter(el => el.uuid !== uuid));
     await deleteParam(uuid);
-    await handleSubmit('', '', '', 1);
   };
 
   return (
@@ -157,12 +157,7 @@ export const Params: React.FC = () => {
         ) : null}
         {/* <ParamForm /> */}
         {selected && (
-          <EditForm
-            group={selected}
-            handleSubmit={handleSubmit}
-            handleDelete={handleDelete}
-            params
-          />
+          <EditParamForm group={selected} handleSubmit={handleSubmit} handleDelete={handleDelete} />
         )}
       </ParamsContainer>
     </>

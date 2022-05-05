@@ -11,34 +11,39 @@ export const Menu: React.FC<IProps> = ({ isOpened }) => {
     <Wrapper isOpened={isOpened}>
       <Background isOpened={isOpened} />
       <Container isOpened={isOpened}>
-        <BtnWrapper>
+        <BtnWrapper to="/categories">
           <Button width="360px" height="60px">
             Категория
           </Button>
         </BtnWrapper>
-        <BtnWrapper>
+        <BtnWrapper to="/reductions">
           <Button width="360px" height="60px">
-            Категория
+            Сокращения
           </Button>
         </BtnWrapper>
-        <BtnWrapper>
+        <BtnWrapper to="/params">
           <Button width="360px" height="60px">
-            Категория
+            Параметры
           </Button>
         </BtnWrapper>
-        <BtnWrapper>
+        <BtnWrapper to="/producers">
           <Button width="360px" height="60px">
-            Категория
+            Производители
           </Button>
         </BtnWrapper>
-        <BtnWrapper>
+        <BtnWrapper to="/specifications">
           <Button width="360px" height="60px">
-            Категория
+            ТУ
           </Button>
         </BtnWrapper>
-        <BtnWrapper>
+        <BtnWrapper to="/components">
           <Button width="360px" height="60px">
-            Категория
+            Компоненты
+          </Button>
+        </BtnWrapper>
+        <BtnWrapper to="/users">
+          <Button width="360px" height="60px">
+            Пользователи
           </Button>
         </BtnWrapper>
       </Container>

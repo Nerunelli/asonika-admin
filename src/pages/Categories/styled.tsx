@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const ButtonsWrap = styled.div`
   display: flex;
-  width: 470px;
+  width: 620px;
   margin-bottom: 30px;
   justify-content: space-between;
   align-items: center;
