@@ -20,19 +20,24 @@ export const Groups: React.FC = () => {
           Параметры
         </Button>
       </ButtonWrapper>
-      <ButtonWrapper to="/params/params">
-        <Button width="350px" height="58px">
-          Параметры 2
-        </Button>
-      </ButtonWrapper>
       <ButtonWrapper to="/producers">
         <Button width="350px" height="58px">
           Производители
         </Button>
       </ButtonWrapper>
-      <ButtonWrapper to="/TU">
+      <ButtonWrapper to="/specifications">
         <Button width="350px" height="58px">
           ТУ
+        </Button>
+      </ButtonWrapper>
+      <ButtonWrapper to="/components">
+        <Button width="350px" height="58px">
+          Компоненты
+        </Button>
+      </ButtonWrapper>
+      <ButtonWrapper to="/users">
+        <Button width="350px" height="58px">
+          Пользователи
         </Button>
       </ButtonWrapper>
     </Wrapper>

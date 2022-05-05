@@ -7,7 +7,7 @@ interface IBtn {
 }
 
 export const Btn = styled.button<IBtn>`
-  ${({ width, height, variant, theme }) => css`
+  ${({ width, height, variant, disabled, theme }) => css`
     min-width: ${width};
     width: ${width};
     min-height: ${height};
@@ -15,23 +15,33 @@ export const Btn = styled.button<IBtn>`
     display: flex;
     justify-content: center;
     align-items: center;
-    background: ${variant === 'normal'
+    background-color: ${disabled
+      ? variant === 'normal'
+        ? theme.colors.disabledGreen
+        : variant === 'danger'
+        ? theme.colors.disabledRed
+        : theme.colors.greyLightAlpha
+      : variant === 'normal'
       ? theme.colors.lightGreen
       : variant === 'danger'
       ? theme.colors.red
-      : theme.color.text};
-    font-size: 14px;
+      : '#fff'};
+    font-size: ${variant === 'transparent' ? '20px' : '14px'};
     font-weight: bold;
-    color: #fff;
+    color: ${variant === 'transparent' ? theme.colors.greyDark : '#fff'};
     border-radius: 10px;
-    border: none;
+    border: ${variant === 'transparent' ? `1px solid ${theme.colors.greyDarkAlpha}` : 'none'};
     cursor: pointer;
     user-select: none;
     &:last-child {
       margin-bottom: 0;
     }
     &:active {
-      background: ${variant === 'normal' ? theme.colors.darkGreen : theme.colors.darkRed};
+      background: ${variant === 'normal'
+        ? theme.colors.darkGreen
+        : variant === 'danger'
+        ? theme.colors.darkRed
+        : theme.colors.lightGreenAlpha};
     }
   `}
 `;

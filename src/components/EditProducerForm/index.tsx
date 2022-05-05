@@ -1,26 +1,35 @@
-import React, { useState } from 'react';
-import { ButtonsWrapper, Container, Wrapper } from '../ParamForm/styled';
+import React, { useEffect, useState } from 'react';
 import { Input } from '../../ui-kit/Input';
 import { TextArea } from '../../ui-kit/TextArea';
 import { Button } from '../../ui-kit/Button';
-import { ReductionTable } from '../ReductionTable';
+import { IGroup } from '../../pages/Reductions';
+import { ButtonsWrapper, Container, Wrapper } from './styled';
 
 // eslint-disable-next-line no-unused-vars
-type onSubmitFunc = (name: string, description: string, marks: string) => void;
+type onSubmitFunc = (name: string, description: string) => void;
+// eslint-disable-next-line no-unused-vars
+type onDeleteFunc = (uuid: string) => void;
 
 interface IProps {
   handleSubmit: onSubmitFunc;
+  handleDelete: onDeleteFunc;
+  group: IGroup;
 }
 
-export const ReductionForm: React.FC<IProps> = ({ handleSubmit }) => {
+export const EditProducerForm: React.FC<IProps> = ({ handleSubmit, handleDelete, group }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+
+  useEffect(() => {
+    setName(group.name);
+    setDescription(group.description);
+  }, [group]);
 
   return (
     <>
       <Container
         onSubmit={e => {
-          handleSubmit(name, description, '');
+          handleSubmit(name, description);
           e.preventDefault();
         }}
       >
@@ -36,14 +45,11 @@ export const ReductionForm: React.FC<IProps> = ({ handleSubmit }) => {
         <Wrapper>
           <TextArea value={description} onChange={e => setDescription(e.target.value)} />
         </Wrapper>
-        <Wrapper>
-          <ReductionTable />
-        </Wrapper>
         <ButtonsWrapper>
           <Button width="120px" isForm>
             Сохранить
           </Button>
-          <Button width="120px" variant="danger">
+          <Button onClick={() => handleDelete(group.uuid)} width="120px" variant="danger">
             Удалить
           </Button>
         </ButtonsWrapper>

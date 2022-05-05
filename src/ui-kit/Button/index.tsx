@@ -4,10 +4,11 @@ import { Btn } from './styled';
 interface IProps {
   width?: string;
   height?: string;
-  variant?: 'normal' | 'danger';
+  variant?: 'normal' | 'danger' | 'transparent' | 'orange';
   className?: string;
   isForm?: boolean;
   onClick?: () => void;
+  disabled?: boolean;
 }
 
 export const Button: React.FC<IProps> = ({
@@ -15,6 +16,7 @@ export const Button: React.FC<IProps> = ({
   width = '100px',
   height = '38px',
   variant = 'normal',
+  disabled = false,
   isForm,
   className,
   onClick,
@@ -27,6 +29,7 @@ export const Button: React.FC<IProps> = ({
       variant={variant}
       type={isForm ? 'submit' : 'button'}
       onClick={onClick}
+      disabled={disabled}
     >
       {children}
     </Btn>

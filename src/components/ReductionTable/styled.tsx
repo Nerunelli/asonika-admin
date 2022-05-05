@@ -34,11 +34,39 @@ export const Input = styled.input`
     min-width: calc(100% / 3);
     padding: 0 10px;
     color: ${colors.greyDark};
+    margin-top: -1px;
 
     &:focus {
       outline: none;
       background-color: ${colors.lightGreenAlpha};
       border: 1px solid ${colors.lightGreen};
     }
+  `}
+`;
+
+export const InputWrapper = styled.div`
+  width: 100%;
+`;
+
+export const Plus = styled.div`
+  width: 18px;
+  outline: none;
+  height: 17px;
+  background-image: url('/static/icons/Plus.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+`;
+
+export const AddButton = styled.button`
+  ${({ theme: { colors } }) => css`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 38px;
+    background-color: #fff;
+    border-radius: 0 0 10px 10px;
+    border: 1px solid ${colors.greyDarkAlpha};
+    margin-top: -1px;
   `}
 `;

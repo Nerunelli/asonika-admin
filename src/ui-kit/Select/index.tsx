@@ -1,31 +1,31 @@
 import React, { useEffect, useState, MouseEvent } from 'react';
 import { Arrow, Wrapper, Text, Options, OptionsItem } from './styled';
-
-const names = ['name1', 'name2', 'name3', 'name1', 'name2', 'name3', 'name1', 'name2', 'name3'];
+import { IGroup } from '../../pages/Reductions';
 
 interface Props {
   placeholder: string;
+  value?: string;
+  names?: IGroup[];
+  // eslint-disable-next-line no-unused-vars
+  onChange?: (value: IGroup) => void;
 }
 
-export const Select: React.FC<Props> = ({ placeholder }) => {
+export const Select: React.FC<Props> = ({ value, placeholder, names, onChange }) => {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(placeholder);
-  const [empty, setEmpty] = useState(true);
 
   const onSelectClick = (event: MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
-    setOpen(prev => !prev);
+    if (names) setOpen(prev => !prev);
   };
 
-  const onSelect = (value: string) => {
-    setValue(value);
+  const onSelect = (value: IGroup) => {
     setOpen(prev => !prev);
-    setEmpty(false);
+    onChange?.(value);
   };
+
   const onReset = () => {
-    setValue(placeholder);
     setOpen(prev => !prev);
-    setEmpty(true);
+    onChange?.({ uuid: '', name: '', description: '' });
   };
 
   const closeSelect = () => {
@@ -41,15 +41,18 @@ export const Select: React.FC<Props> = ({ placeholder }) => {
 
   return (
     <>
-      <Wrapper id="select" onClick={e => onSelectClick(e)}>
-        <Text empty={empty}>{value}</Text>
+      <Wrapper disabled={!names} id="select" onClick={e => onSelectClick(e)}>
+        <Text empty={!value}>{value || placeholder}</Text>
         <Arrow />
       </Wrapper>
       <Options open={open}>
         <OptionsItem onClick={onReset} />
-        {names.map(name => (
-          <OptionsItem onClick={() => onSelect(name)}>{name}</OptionsItem>
-        ))}
+        {names &&
+          names.map(name => (
+            <OptionsItem key={name.uuid} onClick={() => onSelect(name)}>
+              {name.name}
+            </OptionsItem>
+          ))}
       </Options>
     </>
   );

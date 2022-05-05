@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
-export const Wrapper = styled.div`
-  ${({ theme: { colors } }) => css`
+export const Wrapper = styled.div<{ disabled: boolean }>`
+  ${({ theme: { colors }, disabled }) => css`
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -9,6 +9,7 @@ export const Wrapper = styled.div`
     height: 38px;
     padding: 0 10px;
     width: 370px;
+    cursor: ${disabled ? 'default' : 'pointer'};
     border-radius: 10px;
   `}
 `;
