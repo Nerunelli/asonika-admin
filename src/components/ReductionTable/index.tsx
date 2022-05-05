@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { HeaderContainer, Header, Input, Container, AddButton, InputWrapper } from './styled';
 import { Plus } from './styled';
 import { IGroup } from '../../pages/Reductions';
@@ -121,24 +120,24 @@ export const ReductionTable: React.FC<IProps> = ({ group }) => {
     // eslint-disable-next-line no-console
     console.log(watch(`fields.${e.target.id}` as any));
     // if (e.target.id.split('-')[1] === 'reduction') {
-      // try {
-      //   await api.put<{ data: IUnit }>(`/measurement/unit/${uuid}/`, {
-      //     name: e.target.value,
-      //     multiplier,
-      //     min_value: minValue,
-      //     min_is_included: minIsIncluded,
-      //     max_value: maxValue,
-      //     max_is_included: maxIsIncluded,
-      //     group: group.uuid,
-      //   });
-      // } catch (e) {}
+    // try {
+    //   await api.put<{ data: IUnit }>(`/measurement/unit/${uuid}/`, {
+    //     name: e.target.value,
+    //     multiplier,
+    //     min_value: minValue,
+    //     min_is_included: minIsIncluded,
+    //     max_value: maxValue,
+    //     max_is_included: maxIsIncluded,
+    //     group: group.uuid,
+    //   });
+    // } catch (e) {}
 
-      // setUnits(prev => {
-      //   prev[Number(e.target.id.split('-')[0])].name = e.target.value;
-      //   // eslint-disable-next-line no-console
-      //   console.log(prev);
-      //   return prev;
-      // });
+    // setUnits(prev => {
+    //   prev[Number(e.target.id.split('-')[0])].name = e.target.value;
+    //   // eslint-disable-next-line no-console
+    //   console.log(prev);
+    //   return prev;
+    // });
     // }
     // try {
     //   await api.put<{ data: IUnit }>(`/measurement/unit/${uuid}/`, {
