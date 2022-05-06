@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { ThemeProvider } from 'styled-components';
-import { PageWrapper } from './pages/PageWrapper';
+import { PageWrapper } from './components/PageWrapper';
 import { theme } from './theme';
 import { BrowserRouter } from 'react-router-dom';
 import { useCookies } from 'react-cookie';

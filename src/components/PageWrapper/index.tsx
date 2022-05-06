@@ -1,13 +1,13 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Header } from '../../components/Header';
-import { Main } from '../Main';
-import { Params } from '../Params';
-import { Reductions } from '../Reductions';
+import { Header } from '../Header';
+import { Main } from '../../pages/Main';
+import { Params } from '../../pages/Params';
+import { Reductions } from '../../pages/Reductions';
 import { Container } from './styled';
-import { Producers } from '../Producers';
-import { Specifications } from '../Specifications';
-import { Categories } from '../Categories';
+import { Producers } from '../../pages/Producers';
+import { Specifications } from '../../pages/Specifications';
+import { Categories } from '../../pages/Categories';
 
 export const PageWrapper: React.FC = () => {
   return (
