@@ -7,12 +7,8 @@ import { Title, Wrapper, Side, Hello, Username } from './styled';
 export const Header: React.FC = () => {
   const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(false);
 
-  const onBurgerClick = () => {
+  const toggleOpen = () => {
     setIsOpenSidebar(prev => !prev);
-  };
-
-  const onClose = () => {
-    setIsOpenSidebar(false);
   };
 
   useEffect(() => {
@@ -29,7 +25,7 @@ export const Header: React.FC = () => {
     <>
       <Wrapper>
         <Side>
-          <Burger onClick={onBurgerClick} isOpened={isOpenSidebar} />
+          <Burger onClick={toggleOpen} isOpened={isOpenSidebar} />
           <Title>Менеджер БД Асоника-К</Title>
         </Side>
         <Side>
@@ -38,7 +34,7 @@ export const Header: React.FC = () => {
           <More />
         </Side>
       </Wrapper>
-      <Sidebar isOpened={isOpenSidebar} onClose={onClose} />
+      <Sidebar isOpened={isOpenSidebar} onClose={toggleOpen} />
     </>
   );
 };
