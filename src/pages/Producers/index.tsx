@@ -3,7 +3,7 @@ import { Breadcrumbs } from '../../components/Breadcrumbs';
 import { ParamsItem } from '../../components/ParamsItem';
 import { Button } from '../../ui-kit/Button';
 import { ButtonsWrap, ItemsContainer, ItemWrapper, ProducersContainer } from './styled';
-import { api } from '../../api/useApi';
+import { api } from '../../api/api';
 import { EditProducerForm } from '../../components/EditProducerForm';
 
 export interface IManufacturer {

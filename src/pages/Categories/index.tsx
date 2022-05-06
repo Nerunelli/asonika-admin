@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button } from '../../ui-kit/Button';
 import { ButtonsWrap, ItemsContainer, ParamsContainer } from './styled';
 // import { ParamsItem } from '../../components/ParamsItem';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
-// import { api } from '../../api/useApi';
 import { Input } from '../../ui-kit/Input';
 import { Accordion } from '../../ui-kit/Accordion';
 
@@ -17,7 +16,7 @@ export interface ICategory {
 
 export const Categories: React.FC = () => {
   // eslint-disable-next-line no-unused-vars
-  const [categories, setCategories] = useState<ICategory[]>([]);
+  // const [categories, setCategories] = useState<ICategory[]>([]);
 
   // const getParams = async () => {
   //   try {

@@ -1,17 +1,15 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Header } from '../../components/Header';
-import { Main } from '../main';
-// import { Menu } from "../components/Menu";
-import { Params } from '../Params';
-import { Reductions } from '../Reductions';
+import { Header } from '../Header';
+import { Main } from '../../pages/Main';
+import { Params } from '../../pages/Params';
+import { Reductions } from '../../pages/Reductions';
 import { Container } from './styled';
-import { Producers } from '../Producers';
-import { Specifications } from '../Specifications';
-import { Categories } from '../Categories';
-// import { Main } from '../main';
+import { Producers } from '../../pages/Producers';
+import { Specifications } from '../../pages/Specifications';
+import { Categories } from '../../pages/Categories';
 
-export const Content: React.FC = () => {
+export const PageWrapper: React.FC = () => {
   return (
     <>
       <Header />
@@ -27,7 +25,7 @@ export const Content: React.FC = () => {
           <Route path="/params" exact>
             <Params />
           </Route>
-          <Route path="/producers" exact>
+          <Route path="/manufacturers" exact>
             <Producers />
           </Route>
           <Route path="/specifications" exact>

@@ -3,7 +3,7 @@ import { Breadcrumbs } from '../../components/Breadcrumbs';
 import { ParamsItem } from '../../components/ParamsItem';
 import { Button } from '../../ui-kit/Button';
 import { ButtonsWrap, ItemsContainer, ItemWrapper, SpecificationsContainer } from './styled';
-import { api } from '../../api/useApi';
+import { api } from '../../api/api';
 import { EditSpecificationForm } from '../../components/EditSpecificationForm';
 
 export interface ISpecifications {

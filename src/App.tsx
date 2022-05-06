@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { ThemeProvider } from 'styled-components';
-import { Content } from './pages/PageWrapper';
+import { PageWrapper } from './components/PageWrapper';
 import { theme } from './theme';
 import { BrowserRouter } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
-import { api } from './api/useApi';
+import { api } from './api/api';
 
 const App: React.FC = () => {
   const [cookies] = useCookies(['csrftoken']);
@@ -29,7 +29,7 @@ const App: React.FC = () => {
     <>
       <BrowserRouter>
         <ThemeProvider theme={theme}>
-          <Content />
+          <PageWrapper />
         </ThemeProvider>
       </BrowserRouter>
     </>

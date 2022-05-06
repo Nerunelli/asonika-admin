@@ -4,7 +4,7 @@ import { ParamsItem } from '../../components/ParamsItem';
 // import { EditForm } from '../../components/EditForm';
 import { Button } from '../../ui-kit/Button';
 import { ButtonsWrap, ItemsContainer, ItemWrapper, ReductionsContainer } from './styled';
-import { api } from '../../api/useApi';
+import { api } from '../../api/api';
 import { EditReductionForm } from '../../components/EditReductionForm';
 
 export interface IGroup {

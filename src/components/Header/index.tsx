@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Burger } from '../../ui-kit/Burger';
 import { More } from '../../ui-kit/More';
-import { Menu } from '../Menu';
+import { Sidebar } from '../Sidebar';
 import { Title, Wrapper, Side, Hello, Username } from './styled';
 
 export const Header: React.FC = () => {
   const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(false);
 
-  const onBurgerClick = () => {
+  const toggleOpen = () => {
     setIsOpenSidebar(prev => !prev);
   };
 
@@ -25,7 +25,7 @@ export const Header: React.FC = () => {
     <>
       <Wrapper>
         <Side>
-          <Burger onClick={onBurgerClick} isOpened={isOpenSidebar} />
+          <Burger onClick={toggleOpen} isOpened={isOpenSidebar} />
           <Title>Менеджер БД Асоника-К</Title>
         </Side>
         <Side>
@@ -34,7 +34,7 @@ export const Header: React.FC = () => {
           <More />
         </Side>
       </Wrapper>
-      <Menu isOpened={isOpenSidebar} />
+      <Sidebar isOpened={isOpenSidebar} onClose={toggleOpen} />
     </>
   );
 };

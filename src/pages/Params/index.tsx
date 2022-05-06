@@ -3,7 +3,7 @@ import { Button } from '../../ui-kit/Button';
 import { ButtonsWrap, ItemsContainer, ItemWrapper, ParamsContainer } from './styled';
 import { ParamsItem } from '../../components/ParamsItem';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
-import { api } from '../../api/useApi';
+import { api } from '../../api/api';
 import { EditParamForm } from '../../components/EditParamForm';
 import { IGroup } from '../Reductions';
 

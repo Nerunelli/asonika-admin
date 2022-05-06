@@ -1,8 +1,8 @@
 import React from 'react';
 import { Groups } from '../../components/Groups';
 // import { Input } from '../../ui-kit/Input';
-import { Container } from './styled';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
+import { Container } from './styled';
 
 export const Main: React.FC = () => {
   return (

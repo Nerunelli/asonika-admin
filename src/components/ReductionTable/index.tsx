@@ -1,29 +1,29 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import { HeaderContainer, Header, Input, Container, AddButton, InputWrapper } from './styled';
 import { Plus } from './styled';
 import { IGroup } from '../../pages/Reductions';
-import { api } from '../../api/useApi';
+import { api } from '../../api/api';
 import { useFieldArray, useForm } from 'react-hook-form';
 
 // eslint-disable-next-line no-unused-vars
-const test = [
-  {
-    reduction: 'А',
-    multiplier: '1',
-    range: '[0, 1000)',
-  },
-  {
-    reduction: 'кА',
-    multiplier: '1000',
-    range: '[1000, 100000)',
-  },
-  {
-    reduction: 'мА',
-    multiplier: '0.001',
-    range: '[0.001, 1)',
-  },
-];
+// const test = [
+//   {
+//     reduction: 'А',
+//     multiplier: '1',
+//     range: '[0, 1000)',
+//   },
+//   {
+//     reduction: 'кА',
+//     multiplier: '1000',
+//     range: '[1000, 100000)',
+//   },
+//   {
+//     reduction: 'мА',
+//     multiplier: '0.001',
+//     range: '[0.001, 1)',
+//   },
+// ];
 
 export interface IUnit {
   uuid: string;
@@ -41,7 +41,7 @@ interface IProps {
 }
 
 export const ReductionTable: React.FC<IProps> = ({ group }) => {
-  const { register, control, watch } = useForm();
+  const { register, control } = useForm();
   const { fields, replace } = useFieldArray({ control, name: 'fields' });
   const [units, setUnits] = useState<IUnit[]>([]);
   const [allUnits, setAllUnits] = useState<IUnit[]>([]);
@@ -114,13 +114,11 @@ export const ReductionTable: React.FC<IProps> = ({ group }) => {
     }
   };
 
-  const updateUnit = async (
-    e: ChangeEvent<HTMLInputElement>,
+  const updateUnit = async () =>
+    // e: ChangeEvent<HTMLInputElement>
     // { uuid, name, multiplier, minValue, minIsIncluded, maxValue, maxIsIncluded, group }: IUnit,
-  ) => {
-    // eslint-disable-next-line no-console
-    console.log(watch(`fields.${e.target.id}` as any));
-    // if (e.target.id.split('-')[1] === 'reduction') {
+    {
+      // if (e.target.id.split('-')[1] === 'reduction') {
       // try {
       //   await api.put<{ data: IUnit }>(`/measurement/unit/${uuid}/`, {
       //     name: e.target.value,
@@ -132,26 +130,25 @@ export const ReductionTable: React.FC<IProps> = ({ group }) => {
       //     group: group.uuid,
       //   });
       // } catch (e) {}
-
       // setUnits(prev => {
       //   prev[Number(e.target.id.split('-')[0])].name = e.target.value;
       //   // eslint-disable-next-line no-console
       //   console.log(prev);
       //   return prev;
       // });
-    // }
-    // try {
-    //   await api.put<{ data: IUnit }>(`/measurement/unit/${uuid}/`, {
-    //     name,
-    //     multiplier,
-    //     min_value: minValue,
-    //     min_is_included: minIsIncluded,
-    //     max_value: maxValue,
-    //     max_is_included: maxIsIncluded,
-    //     group,
-    //   });
-    // } catch (e) {}
-  };
+      // }
+      // try {
+      //   await api.put<{ data: IUnit }>(`/measurement/unit/${uuid}/`, {
+      //     name,
+      //     multiplier,
+      //     min_value: minValue,
+      //     min_is_included: minIsIncluded,
+      //     max_value: maxValue,
+      //     max_is_included: maxIsIncluded,
+      //     group,
+      //   });
+      // } catch (e) {}
+    };
 
   return (
     <>
@@ -169,7 +166,7 @@ export const ReductionTable: React.FC<IProps> = ({ group }) => {
                   {...register(`fields.${i}.reduction` as any)}
                   id={`${i}.reduction`}
                   // onChange={e => updateUnit(e)}
-                  onBlur={e => updateUnit(e)}
+                  onBlur={() => updateUnit()}
                   key={`fields.${el.id}.reduction`}
                   defaultValue={units[i]?.name}
                 />
