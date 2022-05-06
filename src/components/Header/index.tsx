@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Burger } from '../../ui-kit/Burger';
 import { More } from '../../ui-kit/More';
-import { Menu } from '../Menu';
+import { Sidebar } from '../Sidebar';
 import { Title, Wrapper, Side, Hello, Username } from './styled';
 
 export const Header: React.FC = () => {
@@ -9,6 +9,10 @@ export const Header: React.FC = () => {
 
   const onBurgerClick = () => {
     setIsOpenSidebar(prev => !prev);
+  };
+
+  const onClose = () => {
+    setIsOpenSidebar(false);
   };
 
   useEffect(() => {
@@ -34,7 +38,7 @@ export const Header: React.FC = () => {
           <More />
         </Side>
       </Wrapper>
-      <Menu isOpened={isOpenSidebar} />
+      <Sidebar isOpened={isOpenSidebar} onClose={onClose} />
     </>
   );
 };

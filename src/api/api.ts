@@ -1,6 +1,9 @@
 import axios from 'axios';
-import { APILink } from './API';
+
+const APILink = 'http://localhost:8000/api';
 
 export const api = axios.create({
   baseURL: APILink,
 });
+
+api.defaults.withCredentials = true;

@@ -5,7 +5,7 @@ import { Button } from '../../ui-kit/Button';
 import { IGroup } from '../../pages/Reductions';
 import { ButtonsWrapper, Container, Wrapper } from './styled';
 import { Select } from '../../ui-kit/Select';
-import { api } from '../../api/useApi';
+import { api } from '../../api/api';
 import { IParam } from '../../pages/Params';
 
 // const names = ['name1', 'name2', 'name3', 'name1', 'name2', 'name3', 'name1', 'name2', 'name3'];
@@ -40,7 +40,7 @@ export const EditParamForm: React.FC<IProps> = ({ handleSubmit, handleDelete, gr
     description: '',
   });
   // eslint-disable-next-line no-unused-vars
-  const [type, setType] = useState(1);
+  const [type] = useState(1);
 
   const getMeasurementGroups = async () => {
     try {
