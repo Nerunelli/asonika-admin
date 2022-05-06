@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { ThemeProvider } from 'styled-components';
-import { PageWrapper } from './components/PageWrapper';
+import { Pages } from './pages/Pages';
 import { theme } from './theme';
 import { BrowserRouter } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
@@ -29,7 +29,7 @@ const App: React.FC = () => {
     <>
       <BrowserRouter>
         <ThemeProvider theme={theme}>
-          <PageWrapper />
+          <Pages />
         </ThemeProvider>
       </BrowserRouter>
     </>
