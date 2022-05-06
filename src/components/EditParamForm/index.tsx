@@ -6,19 +6,13 @@ import { IGroup } from '../../pages/Reductions';
 import { ButtonsWrapper, Container, Wrapper } from './styled';
 import { Select } from '../../ui-kit/Select';
 import { api } from '../../api/api';
-import { IParam } from '../../pages/Params';
-
-// const names = ['name1', 'name2', 'name3', 'name1', 'name2', 'name3', 'name1', 'name2', 'name3'];
+import { IParameter } from '../../data/parameters/types';
 
 type onSubmitFunc = (
-  // eslint-disable-next-line no-unused-vars
-  name: string,
-  // eslint-disable-next-line no-unused-vars
-  description: string,
-  // eslint-disable-next-line no-unused-vars
-  measurement_group: IGroup,
-  // eslint-disable-next-line no-unused-vars
-  type: number,
+  _name: string,
+  _description: string,
+  _measurementGroup: IGroup,
+  _type: number,
 ) => void;
 // eslint-disable-next-line no-unused-vars
 type onDeleteFunc = (uuid: string) => void;
@@ -26,7 +20,7 @@ type onDeleteFunc = (uuid: string) => void;
 interface IProps {
   handleSubmit: onSubmitFunc;
   handleDelete: onDeleteFunc;
-  group: IParam;
+  group: IParameter;
 }
 
 export const EditParamForm: React.FC<IProps> = ({ handleSubmit, handleDelete, group }) => {
@@ -39,7 +33,6 @@ export const EditParamForm: React.FC<IProps> = ({ handleSubmit, handleDelete, gr
     name: '',
     description: '',
   });
-  // eslint-disable-next-line no-unused-vars
   const [type] = useState(1);
 
   const getMeasurementGroups = async () => {
@@ -50,16 +43,13 @@ export const EditParamForm: React.FC<IProps> = ({ handleSubmit, handleDelete, gr
   };
 
   useEffect(() => {
-    // createMeasurementGroups('3 group', '3 description').catch(console.error);
     getMeasurementGroups().catch(console.error);
   }, []);
 
   useEffect(() => {
     setName(group.name);
     setDescription(group.description);
-    setMeasurementGroup(group.measurement_group);
-    // eslint-disable-next-line no-console
-    console.log(group.measurement_group);
+    setMeasurementGroup(group.measurementGroup);
   }, [group]);
 
   return (
@@ -82,10 +72,8 @@ export const EditParamForm: React.FC<IProps> = ({ handleSubmit, handleDelete, gr
         <Wrapper>Привязанная единица измерения:</Wrapper>
         <Wrapper>
           <Select
-            // label="Сокращение"
             placeholder="Единица измерения"
             value={measurementGroup.name}
-            // width="250px"
             names={reductions}
             onChange={value => {
               setMeasurementGroup(value);
@@ -98,15 +86,6 @@ export const EditParamForm: React.FC<IProps> = ({ handleSubmit, handleDelete, gr
         <Wrapper>
           <Select placeholder="Тип поля" />
         </Wrapper>
-        {/* <Wrapper>Привязанная единица измерения:</Wrapper> */}
-        {/* <Wrapper> */}
-        {/* <Select placeholder="Единица измерения" /> */}
-        {/* eslint-disable-next-line max-len */}
-        {/* <Select */}
-        {/*  placeholder="Единица измерения" */}
-        {/*  onChange={e => setMeasurementGroup(e)} */}
-        {/* /> */}
-        {/* </Wrapper> */}
         <ButtonsWrapper>
           <Button width="120px" isForm>
             Сохранить

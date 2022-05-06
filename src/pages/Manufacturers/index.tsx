@@ -52,7 +52,7 @@ export const Manufacturers: React.FC = () => {
       <Breadcrumbs
         data={[
           {
-            link: '/producers',
+            link: '/manufacturers',
             title: 'Производители',
           },
         ]}

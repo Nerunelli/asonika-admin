@@ -3,11 +3,11 @@ import { BreadcrumbsData } from './types';
 export const breadcrumbsData = {
   params: [
     {
-      link: '/params',
+      link: '/parameters',
       title: 'Параметры',
     },
     {
-      link: '/params/params',
+      link: '/parameters/params',
       title: 'Параметр 1',
     },
   ],
@@ -25,7 +25,7 @@ export const breadcrumbsData = {
   ],
   producers: [
     {
-      link: '/producers',
+      link: '/manufacturers',
       title: 'Производители',
     },
   ],

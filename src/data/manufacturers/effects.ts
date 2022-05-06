@@ -1,5 +1,5 @@
 import { createEffect } from 'effector';
-import { api } from '../../api/useApi';
+import { api } from '../../api/api';
 import { ICreateManufacturerPayload, IManufacturer, IUpdateManufacturerPayload } from './types';
 
 export const loadManufacturerFx = createEffect<void, IManufacturer[]>(async () => {
