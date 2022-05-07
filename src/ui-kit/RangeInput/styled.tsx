@@ -40,13 +40,13 @@ export const RightField = styled(Input)`
   margin-left: -1px;
 `;
 
-// export const CheckMark = styled.div`
-//   width: 18px;
-//   outline: none;
-//   height: 17px;
-//   background-image: url('/static/icons/CheckMark.svg');
-//   background-repeat: no-repeat;
-//   background-position: center;
-// `;
+export const CheckMark = styled.div`
+  width: 18px;
+  outline: none;
+  height: 17px;
+  background-image: url('/static/icons/CheckMark.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+`;
 
 // border-radius: ${right ? '0 10px 10px 0' : '10px 0 0 10px'};

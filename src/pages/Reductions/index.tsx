@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
 import { ParamsItem } from '../../components/ParamsItem';
 import { Button } from '../../ui-kit/Button';
 import { ButtonsWrap, ItemsContainer, ItemWrapper, ReductionsContainer } from './styled';
 import { EditReductionForm } from '../../components/EditReductionForm';
-import { $measurementGroupsStore } from '../../data/measurement/groups/stores';
+import { $measurementGroupsStore, $selectedGroupStore } from '../../data/measurement/groups/stores';
 import { useEvent, useStore } from 'effector-react';
 import {
   createMeasurementGroupFx,
@@ -12,43 +12,45 @@ import {
   loadAllMeasurementGroupsFx,
   updateMeasurementGroupFx,
 } from '../../data/measurement/groups/effects';
-import { IGroup } from '../../data/measurement/groups/types';
+import { loadAllMeasurementUnitsFx } from '../../data/measurement/units/effects';
+import { selectGroupEv } from '../../data/measurement/groups/events';
 
 export const Reductions: React.FC = () => {
-  const [selected, setSelected] = useState<IGroup | null>();
+  const selected = useStore($selectedGroupStore);
 
   const groups = useStore($measurementGroupsStore);
+
+  const loadAllMeasurementUnits = useEvent(loadAllMeasurementUnitsFx);
 
   const loadAllMeasurementGroups = useEvent(loadAllMeasurementGroupsFx);
   const createMeasurementGroup = useEvent(createMeasurementGroupFx);
   const updateMeasurementGroup = useEvent(updateMeasurementGroupFx);
   const deleteMeasurementGroup = useEvent(deleteMeasurementGroupFx);
+  const selectGroup = useEvent(selectGroupEv);
 
   useEffect(() => {
     loadAllMeasurementGroups().catch(console.error);
+    loadAllMeasurementUnits().catch(console.error);
   }, []);
 
-  const addReduction = () => setSelected({ uuid: '', name: '', description: '' });
+  const addReduction = () => selectGroup({ uuid: '', name: '', description: '' });
 
   const onSelect = (group: { uuid: string; name: string; description: string }) => {
-    setSelected(group);
+    selectGroup(group);
   };
 
   const handleSubmit = async (name: string, description: string) => {
-    // eslint-disable-next-line no-console
-    console.log(name, description);
-
     if (selected?.uuid) {
       updateMeasurementGroup({ uuid: selected.uuid, name, description });
     } else {
       const created = await createMeasurementGroup({ name, description });
-      setSelected(created);
+      selectGroup(created);
     }
   };
 
   const handleDelete = async (uuid: string) => {
     await deleteMeasurementGroup(uuid);
-    setSelected(null);
+    selectGroup(null);
   };
 
   return (

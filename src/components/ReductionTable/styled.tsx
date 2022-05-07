@@ -71,6 +71,7 @@ export const Plus = styled.div`
 export const AddButton = styled.button`
   ${({ theme: { colors } }) => css`
     display: flex;
+    cursor: pointer;
     align-items: center;
     justify-content: center;
     width: 80px;

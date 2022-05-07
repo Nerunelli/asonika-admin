@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
-import { ButtonWrapper, LeftField, RightField, Wrapper } from './styled';
+import { ButtonWrapper, CheckMark, LeftField, RightField, Wrapper } from './styled';
 import { Button } from '../Button';
 
 const left = ['[', '('];
@@ -14,6 +14,12 @@ interface IProps {
   onChangeLeft: onChangeFunc;
   onChangeRight: onChangeFunc;
   disabled?: boolean;
+  value?: {
+    minIsIncluded: boolean;
+    minValue: number;
+    maxValue: number;
+    maxIsIncluded: boolean;
+  };
 }
 
 export const RangeInput: React.FC<IProps> = ({
@@ -22,9 +28,13 @@ export const RangeInput: React.FC<IProps> = ({
   rightValue,
   onChangeLeft,
   onChangeRight,
+  value,
 }) => {
   const [leftBrIdx, setLeftBrIdx] = useState(0);
   const [rightBrIdx, setRightBrIdx] = useState(0);
+
+  // eslint-disable-next-line no-console
+  console.log(value);
 
   const changeBracket = (rightSide: boolean) => {
     if (rightSide) {
@@ -58,6 +68,16 @@ export const RangeInput: React.FC<IProps> = ({
           disabled={disabled}
         >
           {right[rightBrIdx]}
+        </Button>
+      </ButtonWrapper>
+      <ButtonWrapper>
+        <Button
+          width="38px"
+          variant="transparent"
+          onClick={() => changeBracket(true)}
+          disabled={disabled}
+        >
+          <CheckMark />
         </Button>
       </ButtonWrapper>
     </Wrapper>

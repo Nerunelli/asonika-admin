@@ -34,7 +34,7 @@ export const updateMeasurementUnitFx = createEffect<IUnit, IUnit>(async payload 
   return payload;
 });
 
-export const deleteMeasurementUnitFx = createEffect<string, string>(async uuid => {
+export const deleteMeasurementUnitFx = createEffect<string, { uuid: string }>(async uuid => {
   await api.delete(`/measurement/unit/${uuid}/`);
-  return uuid;
+  return { uuid };
 });

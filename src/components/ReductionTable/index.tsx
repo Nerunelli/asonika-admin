@@ -19,10 +19,10 @@ import {
   deleteMeasurementUnitFx,
   updateMeasurementUnitFx,
 } from '../../data/measurement/units/effects';
-import { $measurementUnitsStore, $unitsByGroupStore } from '../../data/measurement/units/stores';
+import { $unitsByGroupStore } from '../../data/measurement/units/stores';
 import { useEvent, useStore } from 'effector-react';
 import { IGroup } from '../../data/measurement/groups/types';
-import { filterMeasurementUnitsByGroupEv } from '../../data/measurement/units/events';
+import { IUnit } from '../../data/measurement/units/types';
 
 interface IProps {
   group: IGroup;
@@ -34,33 +34,26 @@ export const ReductionTable: React.FC<IProps> = ({ group }) => {
   const [leftRangeValue, setLeftRangeValue] = useState('');
   const [rightRangeValue, setRightRangeValue] = useState('');
 
-  const units = useStore($measurementUnitsStore);
   const filteredUnits = useStore($unitsByGroupStore);
 
   const createMeasurementUnit = useEvent(createMeasurementUnitFx);
   const updateMeasurementUnit = useEvent(updateMeasurementUnitFx);
   const deleteMeasurementUnit = useEvent(deleteMeasurementUnitFx);
-  const filterMeasurementUnitsByGroup = useEvent(filterMeasurementUnitsByGroupEv);
 
   useEffect(() => {
     replace(filteredUnits);
   }, [filteredUnits]);
-
-  useEffect(() => {
-    filterMeasurementUnitsByGroup(group.uuid);
-  }, []);
 
   const onAdd = async () => {
     append({});
   };
 
   const updateUnitByName = async (e: ChangeEvent<HTMLInputElement>) => {
-    // eslint-disable-next-line no-console
-    console.log(watch(`fields.${e.target.id}` as any));
     const newName = watch(`fields.${e.target.id}` as any);
-    // eslint-disable-next-line no-console
-    console.log(e.target.value);
-    if (units.length !== fields.length) {
+
+    if (!newName) {
+      replace(filteredUnits);
+    } else if (filteredUnits.length !== fields.length) {
       await createMeasurementUnit({
         group,
         name: newName,
@@ -70,10 +63,9 @@ export const ReductionTable: React.FC<IProps> = ({ group }) => {
         maxValue: 10,
         maxIsIncluded: false,
       });
-      replace(units);
     } else {
       const { uuid, multiplier, minValue, minIsIncluded, maxValue, maxIsIncluded, group } =
-        units[Number(e.target.id.split('.')[0])];
+        filteredUnits[Number(e.target.id.split('.')[0])];
       await updateMeasurementUnit({
         uuid,
         name: e.target.value,
@@ -87,7 +79,21 @@ export const ReductionTable: React.FC<IProps> = ({ group }) => {
     }
   };
 
-  const handleDelete = async (uuid: string) => {
+  const updateMultiplier = async (e: React.FocusEvent<HTMLInputElement>, data: IUnit) => {
+    await updateMeasurementUnit({
+      uuid: data.uuid,
+      name: data.name,
+      multiplier: Number(e.target.value),
+      minValue: data.minValue,
+      minIsIncluded: data.minIsIncluded,
+      maxValue: data.maxValue,
+      maxIsIncluded: data.maxIsIncluded,
+      group,
+    });
+  };
+
+  const handleDelete = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, uuid: string) => {
+    e.preventDefault();
     await deleteMeasurementUnit(uuid);
   };
 
@@ -108,30 +114,34 @@ export const ReductionTable: React.FC<IProps> = ({ group }) => {
                   id={`${i}.reduction`}
                   onBlur={e => updateUnitByName(e)}
                   key={`fields.${el.id}.reduction`}
-                  defaultValue={units[i]?.name}
+                  defaultValue={filteredUnits[i]?.name}
                 />
                 <Input
                   {...register(`fields.${i}.multiplier` as any)}
                   id={`${i}-multiplier`}
+                  onBlur={e => updateMultiplier(e, filteredUnits[i])}
                   // onChange={() => {}}
                   key={`fields.${el.id}.multiplier`}
-                  defaultValue={units[i]?.multiplier}
+                  defaultValue={filteredUnits[i]?.multiplier}
                 />
                 <Input
                   {...register(`fields.${i}.range` as any)}
                   id={`${i}-range`}
                   // onChange={() => {}}
+                  // onBlur={e => updateUnit(e)}
                   readOnly
                   key={`fields.${el.id}.range`}
                   defaultValue={
-                    units[i]
-                      ? `${units[i]?.minIsIncluded ? '[' : '('} ${units[i]?.minValue}, ${
-                          units[i]?.maxValue
-                        } ${units[i]?.maxIsIncluded ? ']' : ')'}`
+                    filteredUnits[i]
+                      ? `${filteredUnits[i]?.minIsIncluded ? '[' : '('} ${
+                          filteredUnits[i]?.minValue
+                        }, ${filteredUnits[i]?.maxValue} ${
+                          filteredUnits[i]?.maxIsIncluded ? ']' : ')'
+                        }`
                       : ''
                   }
                 />
-                <DeleteBtn onClick={() => handleDelete(units[i].uuid)}>&times;</DeleteBtn>
+                <DeleteBtn onClick={e => handleDelete(e, filteredUnits[i].uuid)}>&times;</DeleteBtn>
               </Row>
             ))}
           </form>
