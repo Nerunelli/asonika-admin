@@ -4,9 +4,9 @@ import { Input } from '../../ui-kit/Input';
 import { TextArea } from '../../ui-kit/TextArea';
 import { Button } from '../../ui-kit/Button';
 // import { ReductionTable } from '../ReductionTable';
-import { IGroup } from '../../pages/Reductions';
 import { ButtonsWrapper, Container, Wrapper } from './styled';
 import { Select } from '../../ui-kit/Select';
+import { IGroup } from '../../data/measurement/groups/types';
 
 // eslint-disable-next-line no-unused-vars
 type onSubmitFunc = (name: string, description: string) => void;

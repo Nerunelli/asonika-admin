@@ -4,7 +4,6 @@ import { ButtonsWrap, ItemsContainer, ItemWrapper, ParamsContainer } from './sty
 import { ParamsItem } from '../../components/ParamsItem';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
 import { EditParamForm } from '../../components/EditParamForm';
-import { IGroup } from '../Reductions';
 import { IParameter } from '../../data/parameters/types';
 import { useEvent, useStore } from 'effector-react';
 import { $parametersStore } from '../../data/parameters/stores';
@@ -14,6 +13,7 @@ import {
   loadAllParametersFx,
   updateParameterFx,
 } from '../../data/parameters/effects';
+import { IGroup } from '../../data/measurement/groups/types';
 
 export const Parameters: React.FC = () => {
   const [selected, setSelected] = useState<IParameter | null>();
@@ -101,7 +101,6 @@ export const Parameters: React.FC = () => {
             ))}
           </ItemsContainer>
         ) : null}
-        {/* <ParamForm /> */}
         {selected && (
           <EditParamForm group={selected} handleSubmit={handleSubmit} handleDelete={handleDelete} />
         )}

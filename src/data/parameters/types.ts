@@ -1,4 +1,4 @@
-import { IGroup } from '../../pages/Reductions';
+import { IGroup } from '../measurement/groups/types';
 
 export interface IParameter {
   uuid: string;

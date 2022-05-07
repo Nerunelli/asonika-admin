@@ -1,69 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
 import { ParamsItem } from '../../components/ParamsItem';
-// import { EditForm } from '../../components/EditForm';
 import { Button } from '../../ui-kit/Button';
 import { ButtonsWrap, ItemsContainer, ItemWrapper, ReductionsContainer } from './styled';
-import { api } from '../../api/api';
 import { EditReductionForm } from '../../components/EditReductionForm';
-
-export interface IGroup {
-  uuid: string;
-  name: string;
-  description: string;
-}
+import { $measurementGroupsStore } from '../../data/measurement/groups/stores';
+import { useEvent, useStore } from 'effector-react';
+import {
+  createMeasurementGroupFx,
+  deleteMeasurementGroupFx,
+  loadAllMeasurementGroupsFx,
+  updateMeasurementGroupFx,
+} from '../../data/measurement/groups/effects';
+import { IGroup } from '../../data/measurement/groups/types';
 
 export const Reductions: React.FC = () => {
-  const [groups, setGroups] = useState<IGroup[]>([]);
   const [selected, setSelected] = useState<IGroup | null>();
 
-  const getMeasurementGroups = async () => {
-    try {
-      const res = await api.get<{ data: IGroup[] }>('/measurement/group/');
-      setGroups(res.data.data);
-    } catch (e) {}
-  };
+  const groups = useStore($measurementGroupsStore);
 
-  const createMeasurementGroup = async (
-    name: string,
-    description: string,
-  ): Promise<IGroup | null> => {
-    try {
-      const res = await api.post('/measurement/group/', {
-        name,
-        description,
-      });
-
-      return res.data.data;
-    } catch (e) {}
-
-    return null;
-  };
-
-  const updateMeasurementGroup = async ({ uuid, description, name }: IGroup) => {
-    try {
-      await api.put<{ data: IGroup }>(`/measurement/group/${uuid}/`, { description, name });
-    } catch (e) {}
-  };
-
-  const deleteMeasurementGroup = async (uuid: string) => {
-    try {
-      await api.delete<{ data: IGroup }>(`/measurement/group/${uuid}/`);
-    } catch (e) {}
-    setSelected(null);
-  };
+  const loadAllMeasurementGroups = useEvent(loadAllMeasurementGroupsFx);
+  const createMeasurementGroup = useEvent(createMeasurementGroupFx);
+  const updateMeasurementGroup = useEvent(updateMeasurementGroupFx);
+  const deleteMeasurementGroup = useEvent(deleteMeasurementGroupFx);
 
   useEffect(() => {
-    // createMeasurementGroups('3 group', '3 description').catch(console.error);
-    getMeasurementGroups().catch(console.error);
+    loadAllMeasurementGroups().catch(console.error);
   }, []);
 
   const addReduction = () => setSelected({ uuid: '', name: '', description: '' });
 
   const onSelect = (group: { uuid: string; name: string; description: string }) => {
     setSelected(group);
-    // eslint-disable-next-line no-console
-    // console.log(group.uuid);
   };
 
   const handleSubmit = async (name: string, description: string) => {
@@ -71,30 +39,16 @@ export const Reductions: React.FC = () => {
     console.log(name, description);
 
     if (selected?.uuid) {
-      await updateMeasurementGroup({ uuid: selected.uuid, name, description });
-      setGroups(groups =>
-        groups.map(group =>
-          group.uuid === selected.uuid ? { uuid: group.uuid, name, description } : group,
-        ),
-      );
-      // getMeasurementGroups().catch(console.error);
+      updateMeasurementGroup({ uuid: selected.uuid, name, description });
     } else {
-      const newGroup = await createMeasurementGroup(name, description);
-      // eslint-disable-next-line no-console
-      console.log(newGroup);
-      if (newGroup) {
-        setGroups(groups => [
-          ...groups,
-          { uuid: newGroup.uuid, name: newGroup.name, description: newGroup.description },
-        ]);
-      }
-      setSelected(null);
+      const created = await createMeasurementGroup({ name, description });
+      setSelected(created);
     }
   };
 
   const handleDelete = async (uuid: string) => {
-    setGroups(groups => groups.filter(el => el.uuid !== uuid));
     await deleteMeasurementGroup(uuid);
+    setSelected(null);
   };
 
   return (

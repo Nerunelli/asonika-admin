@@ -46,6 +46,17 @@ export const Input = styled.input`
 
 export const InputWrapper = styled.div`
   width: 100%;
+  //position: relative;
+`;
+
+export const Wrapper = styled.div`
+  width: 100%;
+  margin-bottom: 20px;
+`;
+
+export const Row = styled.div`
+  //width: 100%;
+  position: relative;
 `;
 
 export const Plus = styled.div`
@@ -68,5 +79,33 @@ export const AddButton = styled.button`
     border-radius: 0 0 10px 10px;
     border: 1px solid ${colors.greyDarkAlpha};
     margin-top: -1px;
+  `}
+`;
+
+export const DeleteBtn = styled.button`
+  ${({ theme: { colors } }) => css`
+    //display: flex;
+    cursor: pointer;
+    position: absolute;
+    //align-items: center;
+    //justify-content: center;
+    width: 30px;
+    height: 30px;
+    background-color: #fff;
+    border-radius: 50%;
+    border: none;
+    margin-left: -15px;
+    margin-top: 2px;
+    font-size: 26px;
+    color: #fff;
+    visibility: hidden;
+    transition-property: color, border;
+    transition-duration: 0.1s;
+    transition-timing-function: linear;
+    ${Row}:hover & {
+      visibility: visible;
+      color: ${colors.red};
+      border: 1px solid ${colors.greyDarkAlpha};
+    }
   `}
 `;
