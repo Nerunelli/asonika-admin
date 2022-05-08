@@ -28,11 +28,21 @@ interface IProps {
   group: IGroup;
 }
 
+export interface IRange {
+  minIsIncluded?: boolean;
+  minValue?: number;
+  maxValue?: number;
+  maxIsIncluded?: boolean;
+}
+
 export const ReductionTable: React.FC<IProps> = ({ group }) => {
   const { register, control, watch } = useForm();
   const { fields, replace, append } = useFieldArray({ control, name: 'fields' });
-  const [leftRangeValue, setLeftRangeValue] = useState('');
-  const [rightRangeValue, setRightRangeValue] = useState('');
+  // const [leftRangeValue, setLeftRangeValue] = useState('');
+  // const [rightRangeValue, setRightRangeValue] = useState('');
+  const [rangeValue, setRangeValue] = useState<IRange>({});
+  const [rangeValues, setRangeValues] = useState<IRange[]>([]);
+  const [active, setActive] = useState<boolean[]>([]);
 
   const filteredUnits = useStore($unitsByGroupStore);
 
@@ -42,6 +52,16 @@ export const ReductionTable: React.FC<IProps> = ({ group }) => {
 
   useEffect(() => {
     replace(filteredUnits);
+    setRangeValues(() =>
+      filteredUnits.map(el => ({
+        minIsIncluded: el.minIsIncluded,
+        minValue: el.minValue,
+        maxValue: el.maxValue,
+        maxIsIncluded: el.maxIsIncluded,
+      })),
+    );
+    setRangeValue({});
+    setActive(new Array(filteredUnits.length).fill(false));
   }, [filteredUnits]);
 
   const onAdd = async () => {
@@ -60,7 +80,7 @@ export const ReductionTable: React.FC<IProps> = ({ group }) => {
         multiplier: 0,
         minValue: -10,
         minIsIncluded: false,
-        maxValue: 10,
+        maxValue: 0,
         maxIsIncluded: false,
       });
     } else {
@@ -97,6 +117,14 @@ export const ReductionTable: React.FC<IProps> = ({ group }) => {
     await deleteMeasurementUnit(uuid);
   };
 
+  const updateRange = (res: IRange) => {
+    // eslint-disable-next-line no-console
+    console.log(res);
+
+    setRangeValue({});
+    setActive(prev => prev.fill(false));
+  };
+
   return (
     <>
       <Container>
@@ -127,17 +155,19 @@ export const ReductionTable: React.FC<IProps> = ({ group }) => {
                 <Input
                   {...register(`fields.${i}.range` as any)}
                   id={`${i}-range`}
-                  // onChange={() => {}}
+                  onClick={() => {
+                    setRangeValue(rangeValues[i]);
+                    active[i] = true;
+                  }}
                   // onBlur={e => updateUnit(e)}
+                  active={active[i]}
                   readOnly
                   key={`fields.${el.id}.range`}
                   defaultValue={
-                    filteredUnits[i]
-                      ? `${filteredUnits[i]?.minIsIncluded ? '[' : '('} ${
-                          filteredUnits[i]?.minValue
-                        }, ${filteredUnits[i]?.maxValue} ${
-                          filteredUnits[i]?.maxIsIncluded ? ']' : ')'
-                        }`
+                    rangeValues[i]
+                      ? `${rangeValues[i]?.minIsIncluded ? '[' : '('} ${
+                          rangeValues[i]?.minValue
+                        }, ${rangeValues[i]?.maxValue} ${rangeValues[i]?.maxIsIncluded ? ']' : ')'}`
                       : ''
                   }
                 />
@@ -151,11 +181,9 @@ export const ReductionTable: React.FC<IProps> = ({ group }) => {
         </AddButton>
         <Wrapper>
           <RangeInput
-            leftValue={leftRangeValue}
-            onChangeLeft={e => setLeftRangeValue(e.target.value)}
-            onChangeRight={e => setRightRangeValue(e.target.value)}
-            rightValue={rightRangeValue}
-            // disabled
+            value={rangeValue}
+            handleSubmit={updateRange}
+            disabled={!rangeValue.maxValue?.toString().length}
           />
         </Wrapper>
       </Container>

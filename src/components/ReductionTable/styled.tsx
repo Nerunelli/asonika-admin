@@ -26,8 +26,8 @@ export const Header = styled.div`
   font-size: 16px;
 `;
 
-export const Input = styled.input`
-  ${({ theme: { colors } }) => css`
+export const Input = styled.input<{ active?: boolean }>`
+  ${({ active, theme: { colors } }) => css`
     border-radius: 0;
     height: 38px;
     border: 1px solid ${colors.greyDarkAlpha};
@@ -35,6 +35,7 @@ export const Input = styled.input`
     padding: 0 10px;
     color: ${colors.greyDark};
     margin-top: -1px;
+    background-color: ${active ? colors.lightGreenAlpha : ''};
 
     &:focus {
       outline: none;
