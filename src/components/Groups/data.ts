@@ -5,7 +5,7 @@ export interface ICategoriesLink {
 
 export const categoriesData: ICategoriesLink[] = [
   { title: 'Категория', href: '/categories' },
-  { title: 'Сокращения', href: '/reductions' },
+  { title: 'Единицы измерения', href: '/reductions' },
   { title: 'Параметры', href: '/parameters' },
   { title: 'Производители', href: '/manufacturers' },
   { title: 'ТУ', href: '/specifications' },

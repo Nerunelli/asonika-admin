@@ -61,13 +61,13 @@ export const Reductions: React.FC = () => {
         data={[
           {
             link: '/reductions',
-            title: 'Сокращения',
+            title: 'Единицы измерения',
           },
         ]}
       />
       <ButtonsWrap>
-        <Button onClick={addReduction} width="220px">
-          Добавить сокращение
+        <Button onClick={addReduction} width="260px">
+          Добавить единицу измерения
         </Button>
       </ButtonsWrap>
       <ReductionsContainer>

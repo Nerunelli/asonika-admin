@@ -20,7 +20,7 @@ export const breadcrumbsData = {
   reductions: [
     {
       link: '/reductions',
-      title: 'Сокращения',
+      title: 'Единицы измерения',
     },
   ],
   producers: [
