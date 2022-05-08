@@ -9,7 +9,7 @@ const right = [')', ']'];
 
 interface IProps {
   disabled?: boolean;
-  value: IRange;
+  value: IRange | null;
   // eslint-disable-next-line no-unused-vars
   handleSubmit: (val: IRange) => void;
 }
@@ -85,6 +85,7 @@ export const RangeInput: React.FC<IProps> = ({ disabled = false, value, handleSu
           variant="transparent"
           onClick={() => {
             handleSubmit({
+              idx: value?.idx,
               minIsIncluded: Boolean(leftBrIdx),
               minValue: watch(`min`) ? Number(watch(`min`)) : innerValue?.minValue,
               maxValue: watch(`max`) ? Number(watch(`max`)) : innerValue?.maxValue,

@@ -7,7 +7,7 @@ import {
   updateMeasurementGroupFx,
 } from './effects';
 import { deleteFromStateByUUID, updateStateByUUID } from '../../utils';
-import { selectGroupEv } from './events';
+import { clearStoreEv, selectGroupEv } from './events';
 
 export const $measurementGroupsStore = measurementGroupDomain
   .createStore<IGroup[]>([])
@@ -18,4 +18,5 @@ export const $measurementGroupsStore = measurementGroupDomain
 
 export const $selectedGroupStore = measurementGroupDomain
   .createStore<IGroup | null>(null)
-  .on(selectGroupEv, (_, data) => data);
+  .on(selectGroupEv, (_, data) => data)
+  .on(clearStoreEv, () => null);

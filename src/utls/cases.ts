@@ -4,7 +4,7 @@ const capitalize = (str: string): string => {
 
 const convertToCamel = (str: string): string => {
   const splittedKey = str.split('_').filter(Boolean);
-  return [splittedKey[0], splittedKey.slice(1).map(capitalize)].join('');
+  return [splittedKey[0], ...splittedKey.slice(1).map(capitalize)].join('');
 };
 
 const isSnakeCase = (str: string): boolean => {

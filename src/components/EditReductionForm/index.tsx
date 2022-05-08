@@ -20,10 +20,6 @@ interface IProps {
 export const EditReductionForm: React.FC<IProps> = ({ handleSubmit, handleDelete, group }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  // eslint-disable-next-line no-unused-vars
-  const [leftRangeValue, setLeftRangeValue] = useState('');
-  // eslint-disable-next-line no-unused-vars
-  const [rightRangeValue, setRightRangeValue] = useState('');
 
   useEffect(() => {
     setName(group.name);

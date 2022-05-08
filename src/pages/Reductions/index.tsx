@@ -13,7 +13,7 @@ import {
   updateMeasurementGroupFx,
 } from '../../data/measurement/groups/effects';
 import { loadAllMeasurementUnitsFx } from '../../data/measurement/units/effects';
-import { selectGroupEv } from '../../data/measurement/groups/events';
+import { clearStoreEv, selectGroupEv } from '../../data/measurement/groups/events';
 
 export const Reductions: React.FC = () => {
   const selected = useStore($selectedGroupStore);
@@ -21,6 +21,7 @@ export const Reductions: React.FC = () => {
   const groups = useStore($measurementGroupsStore);
 
   const loadAllMeasurementUnits = useEvent(loadAllMeasurementUnitsFx);
+  const clearStore = useEvent(clearStoreEv);
 
   const loadAllMeasurementGroups = useEvent(loadAllMeasurementGroupsFx);
   const createMeasurementGroup = useEvent(createMeasurementGroupFx);
@@ -31,6 +32,7 @@ export const Reductions: React.FC = () => {
   useEffect(() => {
     loadAllMeasurementGroups().catch(console.error);
     loadAllMeasurementUnits().catch(console.error);
+    return clearStore;
   }, []);
 
   const addReduction = () => selectGroup({ uuid: '', name: '', description: '' });

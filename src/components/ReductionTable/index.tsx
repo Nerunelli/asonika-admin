@@ -29,6 +29,7 @@ interface IProps {
 }
 
 export interface IRange {
+  idx?: number;
   minIsIncluded?: boolean;
   minValue?: number;
   maxValue?: number;
@@ -38,9 +39,7 @@ export interface IRange {
 export const ReductionTable: React.FC<IProps> = ({ group }) => {
   const { register, control, watch } = useForm();
   const { fields, replace, append } = useFieldArray({ control, name: 'fields' });
-  // const [leftRangeValue, setLeftRangeValue] = useState('');
-  // const [rightRangeValue, setRightRangeValue] = useState('');
-  const [rangeValue, setRangeValue] = useState<IRange>({});
+  const [rangeValue, setRangeValue] = useState<IRange | null>({});
   const [rangeValues, setRangeValues] = useState<IRange[]>([]);
   const [active, setActive] = useState<boolean[]>([]);
 
@@ -53,7 +52,8 @@ export const ReductionTable: React.FC<IProps> = ({ group }) => {
   useEffect(() => {
     replace(filteredUnits);
     setRangeValues(() =>
-      filteredUnits.map(el => ({
+      filteredUnits.map((el, i) => ({
+        idx: i,
         minIsIncluded: el.minIsIncluded,
         minValue: el.minValue,
         maxValue: el.maxValue,
@@ -101,13 +101,8 @@ export const ReductionTable: React.FC<IProps> = ({ group }) => {
 
   const updateMultiplier = async (e: React.FocusEvent<HTMLInputElement>, data: IUnit) => {
     await updateMeasurementUnit({
-      uuid: data.uuid,
-      name: data.name,
+      ...data,
       multiplier: Number(e.target.value),
-      minValue: data.minValue,
-      minIsIncluded: data.minIsIncluded,
-      maxValue: data.maxValue,
-      maxIsIncluded: data.maxIsIncluded,
       group,
     });
   };
@@ -117,9 +112,18 @@ export const ReductionTable: React.FC<IProps> = ({ group }) => {
     await deleteMeasurementUnit(uuid);
   };
 
-  const updateRange = (res: IRange) => {
-    // eslint-disable-next-line no-console
-    console.log(res);
+  const updateRange = async (res: IRange) => {
+    const data = filteredUnits[res.idx ? res.idx : 0];
+    await updateMeasurementUnit({
+      uuid: data.uuid,
+      name: data.name,
+      multiplier: data.multiplier,
+      minValue: res.minValue ? res.minValue : 0,
+      minIsIncluded: res.minIsIncluded ? res.minIsIncluded : false,
+      maxValue: res.maxValue ? res.maxValue : 0,
+      maxIsIncluded: res.maxIsIncluded ? res.maxIsIncluded : false,
+      group: data.group,
+    });
 
     setRangeValue({});
     setActive(prev => prev.fill(false));
@@ -148,7 +152,6 @@ export const ReductionTable: React.FC<IProps> = ({ group }) => {
                   {...register(`fields.${i}.multiplier` as any)}
                   id={`${i}-multiplier`}
                   onBlur={e => updateMultiplier(e, filteredUnits[i])}
-                  // onChange={() => {}}
                   key={`fields.${el.id}.multiplier`}
                   defaultValue={filteredUnits[i]?.multiplier}
                 />
@@ -159,7 +162,6 @@ export const ReductionTable: React.FC<IProps> = ({ group }) => {
                     setRangeValue(rangeValues[i]);
                     active[i] = true;
                   }}
-                  // onBlur={e => updateUnit(e)}
                   active={active[i]}
                   readOnly
                   key={`fields.${el.id}.range`}
@@ -183,55 +185,10 @@ export const ReductionTable: React.FC<IProps> = ({ group }) => {
           <RangeInput
             value={rangeValue}
             handleSubmit={updateRange}
-            disabled={!rangeValue.maxValue?.toString().length}
+            disabled={!rangeValue?.maxValue?.toString().length}
           />
         </Wrapper>
       </Container>
     </>
   );
 };
-
-// const onChangeReduct = (e: ChangeEvent<HTMLInputElement>) => {
-//   const idx = Number(e.target.id[0]);
-//   const field: 'reduction' | 'multiplier' | 'range' = e.target.id.slice(2);
-//   // eslint-disable-next-line no-console
-//   // console.log(field);
-//   setValue(() => {
-//     value[idx][field] = e.target.value;
-//     return value;
-//   });
-// };
-
-// const onSelect = (manufacturer: { uuid: string; name: string; description: string }) => {
-//   setSelected(manufacturer);
-// };
-
-// const handleSubmit = async (name: string, description: string) => {
-//   // eslint-disable-next-line no-console
-//   console.log(name, description);
-//
-//   if (selected?.uuid) {
-//     await updateManufacturer({ uuid: selected.uuid, name, description });
-//     setManufacturers(manufacturer =>
-//       manufacturer.map(manufacturer =>
-//         manufacturer.uuid === selected.uuid
-//           ? { uuid: manufacturer.uuid, name, description }
-//           : manufacturer,
-//       ),
-//     );
-//   } else {
-//     const newManufacturer = await createManufacturer(name, description);
-//     // eslint-disable-next-line no-console
-//     console.log(newManufacturer);
-//     if (newManufacturer) {
-//       setManufacturers(manufacturers => [
-//         ...manufacturers,
-//         {
-//           uuid: newManufacturer.uuid,
-//           name: newManufacturer.name,
-//           description: newManufacturer.description,
-//         },
-//       ]);
-//     }
-//   }
-// };
