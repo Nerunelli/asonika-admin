@@ -51,6 +51,7 @@ export const InputWrapper = styled.div`
 export const Wrapper = styled.div`
   width: 100%;
   margin-bottom: 20px;
+  margin-top: -18px;
 `;
 
 export const Row = styled.div`
@@ -66,7 +67,7 @@ export const Plus = styled.div`
   background-position: center;
 `;
 
-export const AddButton = styled.button`
+export const AddButton = styled.div`
   ${({ theme: { colors } }) => css`
     display: flex;
     cursor: pointer;
@@ -78,6 +79,8 @@ export const AddButton = styled.button`
     border-radius: 0 0 10px 10px;
     border: 1px solid ${colors.greyDarkAlpha};
     margin-top: -1px;
+    position: relative;
+    z-index: 10;
   `}
 `;
 
@@ -98,6 +101,7 @@ export const DeleteBtn = styled.button`
     transition-property: color, border;
     transition-duration: 0.1s;
     transition-timing-function: linear;
+
     ${Row}:hover & {
       visibility: visible;
       color: ${colors.red};
