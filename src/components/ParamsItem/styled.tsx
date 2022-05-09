@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
-export const Container = styled.div`
-  ${({ theme: { shadow } }) => css`
+export const Container = styled.div<{ active?: boolean }>`
+  ${({ theme: { shadow, colors }, active }) => css`
     width: 100%;
     height: 50px;
     border-radius: 10px;
@@ -10,6 +10,13 @@ export const Container = styled.div`
     align-items: center;
     justify-content: space-between;
     padding: 0 16px;
+    cursor: pointer;
+    ${active
+      ? css`
+          box-shadow: none;
+          background-color: ${colors.greySuperLightAlpha};
+        `
+      : ''}
   `}
 `;
 // box-shadow: ${active ? 'none' : shadow.main};

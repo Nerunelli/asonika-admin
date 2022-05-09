@@ -60,11 +60,13 @@ export const Manufacturers: React.FC = () => {
         {manufacturers.length ? (
           <ItemsContainer>
             {manufacturers.map((manufacturer, i) => (
-              <ItemWrapper
-                onClick={() => onSelect(manufacturer)}
-                key={`manufacturerItem-${manufacturer.name}${i}`}
-              >
-                <ParamsItem>{manufacturer.name}</ParamsItem>
+              <ItemWrapper key={`manufacturerItem-${manufacturer.name}${i}`}>
+                <ParamsItem
+                  onClick={() => onSelect(manufacturer)}
+                  active={manufacturer.uuid === selected?.uuid}
+                >
+                  {manufacturer.name}
+                </ParamsItem>
               </ItemWrapper>
             ))}
           </ItemsContainer>

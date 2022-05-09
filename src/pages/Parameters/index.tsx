@@ -89,8 +89,10 @@ export const Parameters: React.FC = () => {
         {parameters.length ? (
           <ItemsContainer>
             {parameters.map((param, i) => (
-              <ItemWrapper onClick={() => onSelect(param)} key={`paramItem-${param.name}${i}`}>
-                <ParamsItem>{param.name}</ParamsItem>
+              <ItemWrapper key={`paramItem-${param.name}${i}`}>
+                <ParamsItem onClick={() => onSelect(param)} active={selected?.uuid === param.uuid}>
+                  {param.name}
+                </ParamsItem>
               </ItemWrapper>
             ))}
           </ItemsContainer>
