@@ -34,7 +34,7 @@ export const Manufacturers: React.FC = () => {
     setSelected(manufacturer);
   };
 
-  const handleSubmit = async (name: string, description: string) => {
+  const handleSubmit = async ({ name, description }: Omit<IManufacturer, 'uuid'>) => {
     if (selected?.uuid) {
       await updateManufacturer({ uuid: selected.uuid, name, description });
     } else {
@@ -72,11 +72,7 @@ export const Manufacturers: React.FC = () => {
           </ItemsContainer>
         ) : null}
         {selected && (
-          <EditProducerForm
-            group={selected}
-            handleSubmit={handleSubmit}
-            handleDelete={handleDelete}
-          />
+          <EditProducerForm group={selected} onSubmit={handleSubmit} onDelete={handleDelete} />
         )}
       </ProducersContainer>
     </>

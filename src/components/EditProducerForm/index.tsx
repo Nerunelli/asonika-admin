@@ -1,55 +1,80 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Input } from '../../ui-kit/Input';
 import { TextArea } from '../../ui-kit/TextArea';
 import { Button } from '../../ui-kit/Button';
 import { ButtonsWrapper, Container, Wrapper } from './styled';
 import { IGroup } from '../../data/measurement/groups/types';
+import { Controller, useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
-// eslint-disable-next-line no-unused-vars
-type onSubmitFunc = (name: string, description: string) => void;
-// eslint-disable-next-line no-unused-vars
-type onDeleteFunc = (uuid: string) => void;
+type onSubmitFunc = (_data: { name: string; description: string }) => void;
+type onDeleteFunc = (_uuid: string) => void;
 
 interface IProps {
-  handleSubmit: onSubmitFunc;
-  handleDelete: onDeleteFunc;
+  onSubmit: onSubmitFunc;
+  onDelete: onDeleteFunc;
   group: IGroup;
 }
 
-export const EditProducerForm: React.FC<IProps> = ({ handleSubmit, handleDelete, group }) => {
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+const schema = yup
+  .object()
+  .shape({
+    name: yup.string().required(),
+    description: yup.string().required(),
+  })
+  .required();
+
+export const EditProducerForm: React.FC<IProps> = ({ onSubmit, onDelete, group }) => {
+  const { handleSubmit, control, setValue } = useForm<{ name: string; description: string }>({
+    resolver: yupResolver(schema),
+  });
 
   useEffect(() => {
-    setName(group.name);
-    setDescription(group.description);
+    setValue('name', group.name);
+    setValue('description', group.description);
   }, [group]);
 
   return (
     <>
-      <Container
-        onSubmit={e => {
-          handleSubmit(name, description);
-          e.preventDefault();
-        }}
-      >
+      <Container onSubmit={handleSubmit(onSubmit)}>
         <Wrapper>
-          <Input
-            label="Название"
-            placeholder="Введите текст"
-            width="550px"
-            value={name}
-            onChange={e => setName(e.target.value)}
+          <Controller
+            control={control}
+            name="name"
+            defaultValue={group.name}
+            render={({ field: { value, onChange }, fieldState: { invalid } }) => (
+              <Input
+                label="Название *"
+                placeholder="Введите текст"
+                width="550px"
+                value={value}
+                onChange={onChange}
+                hasError={invalid}
+              />
+            )}
           />
         </Wrapper>
         <Wrapper>
-          <TextArea value={description} onChange={e => setDescription(e.target.value)} />
+          <Controller
+            control={control}
+            name="description"
+            defaultValue={group.description}
+            render={({ field: { value, onChange }, fieldState: { invalid } }) => (
+              <TextArea
+                labelText="Описание *"
+                value={value}
+                onChange={onChange}
+                hasError={invalid}
+              />
+            )}
+          />
         </Wrapper>
         <ButtonsWrapper>
           <Button width="120px" isForm>
             Сохранить
           </Button>
-          <Button onClick={() => handleDelete(group.uuid)} width="120px" variant="danger">
+          <Button onClick={() => onDelete(group.uuid)} width="120px" variant="danger">
             Удалить
           </Button>
         </ButtonsWrapper>
