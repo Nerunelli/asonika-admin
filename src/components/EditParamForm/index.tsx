@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Input } from '../../ui-kit/Input';
 import { TextArea } from '../../ui-kit/TextArea';
 import { Button } from '../../ui-kit/Button';
-import { IGroup } from '../../pages/Reductions';
 import { ButtonsWrapper, Container, Wrapper } from './styled';
 import { Select } from '../../ui-kit/Select';
 import { api } from '../../api/api';
 import { IParameter } from '../../data/parameters/types';
+import { IGroup } from '../../data/measurement/groups/types';
 
 type onSubmitFunc = (
   _name: string,
@@ -14,8 +14,7 @@ type onSubmitFunc = (
   _measurementGroup: IGroup,
   _type: number,
 ) => void;
-// eslint-disable-next-line no-unused-vars
-type onDeleteFunc = (uuid: string) => void;
+type onDeleteFunc = (_: string) => void;
 
 interface IProps {
   handleSubmit: onSubmitFunc;
@@ -27,7 +26,6 @@ export const EditParamForm: React.FC<IProps> = ({ handleSubmit, handleDelete, gr
   const [name, setName] = useState('');
   const [reductions, setReductions] = useState<IGroup[]>();
   const [description, setDescription] = useState('');
-  // eslint-disable-next-line no-unused-vars
   const [measurementGroup, setMeasurementGroup] = useState<IGroup>({
     uuid: '',
     name: '',

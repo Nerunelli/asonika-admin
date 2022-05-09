@@ -4,7 +4,6 @@ import { ButtonsWrap, ItemsContainer, ItemWrapper, ParamsContainer } from './sty
 import { ParamsItem } from '../../components/ParamsItem';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
 import { EditParamForm } from '../../components/EditParamForm';
-import { IGroup } from '../Reductions';
 import { IParameter } from '../../data/parameters/types';
 import { useEvent, useStore } from 'effector-react';
 import { $parametersStore } from '../../data/parameters/stores';
@@ -14,6 +13,8 @@ import {
   loadAllParametersFx,
   updateParameterFx,
 } from '../../data/parameters/effects';
+import { IGroup } from '../../data/measurement/groups/types';
+import { categoriesData } from '../../components/Groups/data';
 
 export const Parameters: React.FC = () => {
   const [selected, setSelected] = useState<IParameter | null>();
@@ -75,21 +76,14 @@ export const Parameters: React.FC = () => {
 
   return (
     <>
-      <Breadcrumbs
-        data={[
-          {
-            link: '/parameters',
-            title: 'Параметры',
-          },
-        ]}
-      />
+      <Breadcrumbs data={[categoriesData.parameters]} />
       <ButtonsWrap>
         <Button onClick={addParam} width="220px">
           Добавить параметр
         </Button>
-        <Button variant="danger" width="220px">
-          Удалить выбранные
-        </Button>
+        {/* <Button variant="danger" width="220px"> */}
+        {/*  Удалить выбранные */}
+        {/* </Button> */}
       </ButtonsWrap>
       <ParamsContainer>
         {parameters.length ? (
@@ -101,7 +95,6 @@ export const Parameters: React.FC = () => {
             ))}
           </ItemsContainer>
         ) : null}
-        {/* <ParamForm /> */}
         {selected && (
           <EditParamForm group={selected} handleSubmit={handleSubmit} handleDelete={handleDelete} />
         )}

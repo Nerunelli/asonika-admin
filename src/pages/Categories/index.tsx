@@ -5,6 +5,7 @@ import { ButtonsWrap, ItemsContainer, ParamsContainer } from './styled';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
 import { Input } from '../../ui-kit/Input';
 import { Accordion } from '../../ui-kit/Accordion';
+import { categoriesData } from '../../components/Groups/data';
 
 export interface ICategory {
   uuid: string;
@@ -64,14 +65,7 @@ export const Categories: React.FC = () => {
 
   return (
     <>
-      <Breadcrumbs
-        data={[
-          {
-            link: '/categories',
-            title: 'Категории',
-          },
-        ]}
-      />
+      <Breadcrumbs data={[categoriesData.categories]} />
       <ButtonsWrap>
         <Input isSearch placeholder="Поиск по категориям" />
         <Button width="220px">Добавить категорию</Button>

@@ -4,6 +4,7 @@ import { TextArea } from '../../ui-kit/TextArea';
 import { Button } from '../../ui-kit/Button';
 import { ButtonsWrapper, Container, Wrapper } from './styled';
 import { ISpecifications } from '../../pages/Specifications';
+import { FileInput } from '../../ui-kit/FileInput';
 
 // eslint-disable-next-line no-unused-vars
 type onSubmitFunc = (name: string, description: string, specificationFileUrl: string) => void;
@@ -52,10 +53,11 @@ export const EditSpecificationForm: React.FC<IProps> = ({
           <TextArea value={description} onChange={e => setDescription(e.target.value)} />
         </Wrapper>
         <Wrapper>
-          <TextArea
-            value={specificationFileUrl}
-            onChange={e => setSpecificationFileUrl(e.target.value)}
-          />
+          <FileInput />
+          {/* <TextArea */}
+          {/*  value={specificationFileUrl} */}
+          {/*  onChange={e => setSpecificationFileUrl(e.target.value)} */}
+          {/* /> */}
         </Wrapper>
         <ButtonsWrapper>
           <Button width="120px" isForm>

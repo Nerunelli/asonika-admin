@@ -35,7 +35,6 @@ export const Arrow = styled.div`
 export const Options = styled.div<{ open: boolean }>`
   ${({ theme: { shadow }, open }) => css`
     position: absolute;
-    //margin-top: 10px;
     width: 370px;
     max-height: 210px;
     background-color: #fff;

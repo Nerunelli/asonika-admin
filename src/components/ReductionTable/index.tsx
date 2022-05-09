@@ -1,154 +1,132 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import React, { useEffect, useState } from 'react';
-import { HeaderContainer, Header, Input, Container, AddButton, InputWrapper } from './styled';
+import React, { ChangeEvent, useEffect, useState } from 'react';
+import {
+  HeaderContainer,
+  Header,
+  Input,
+  Container,
+  AddButton,
+  InputWrapper,
+  DeleteBtn,
+  Row,
+  Wrapper,
+} from './styled';
 import { Plus } from './styled';
-import { IGroup } from '../../pages/Reductions';
-import { api } from '../../api/api';
 import { useFieldArray, useForm } from 'react-hook-form';
-
-// eslint-disable-next-line no-unused-vars
-// const test = [
-//   {
-//     reduction: 'А',
-//     multiplier: '1',
-//     range: '[0, 1000)',
-//   },
-//   {
-//     reduction: 'кА',
-//     multiplier: '1000',
-//     range: '[1000, 100000)',
-//   },
-//   {
-//     reduction: 'мА',
-//     multiplier: '0.001',
-//     range: '[0.001, 1)',
-//   },
-// ];
-
-export interface IUnit {
-  uuid: string;
-  name: string;
-  multiplier: number;
-  min_value: number;
-  min_is_included: boolean;
-  max_value: number;
-  max_is_included: boolean;
-  group: IGroup;
-}
+import { RangeInput } from '../../ui-kit/RangeInput';
+import {
+  createMeasurementUnitFx,
+  deleteMeasurementUnitFx,
+  updateMeasurementUnitFx,
+} from '../../data/measurement/units/effects';
+import { $unitsByGroupStore } from '../../data/measurement/units/stores';
+import { useEvent, useStore } from 'effector-react';
+import { IGroup } from '../../data/measurement/groups/types';
+import { IUnit } from '../../data/measurement/units/types';
+import { camelToSnake } from '../../utls/cases';
 
 interface IProps {
   group: IGroup;
 }
 
+export interface IRange {
+  idx: number;
+  minIsIncluded: boolean;
+  minValue: number;
+  maxValue: number;
+  maxIsIncluded: boolean;
+}
+
 export const ReductionTable: React.FC<IProps> = ({ group }) => {
   const { register, control } = useForm();
-  const { fields, replace } = useFieldArray({ control, name: 'fields' });
-  const [units, setUnits] = useState<IUnit[]>([]);
-  const [allUnits, setAllUnits] = useState<IUnit[]>([]);
+  const { fields, replace, append } = useFieldArray({ control, name: 'fields' });
+  const [rangeValue, setRangeValue] = useState<IRange | null>(null);
+  const [rangeValues, setRangeValues] = useState<IRange[]>([]);
+  const [active, setActive] = useState<boolean[]>([]);
 
-  const getUnits = async () => {
-    try {
-      const res = await api.get<{ data: IUnit[] }>('/measurement/unit/');
-      setAllUnits(res.data.data);
-    } catch (e) {
-      console.error(e);
-    }
-  };
+  const filteredUnits = useStore($unitsByGroupStore);
 
-  const createUnit = async (
-    group: IGroup,
-    name: string,
-    multiplier: number,
-    min_value: number,
-    min_is_included: boolean,
-    max_value: number,
-    max_is_included: boolean,
-  ): Promise<IUnit | null> => {
-    try {
-      const res = await api.post('/measurement/unit/', {
-        group: group.uuid,
-        // name: group.name,
-        name,
-        multiplier,
-        min_value,
-        min_is_included,
-        max_value,
-        max_is_included,
-      });
-      // eslint-disable-next-line no-console
-      console.log(res.data.data);
-      return res.data.data;
-    } catch (e) {}
-
-    return null;
-  };
+  const createMeasurementUnit = useEvent(createMeasurementUnitFx);
+  const updateMeasurementUnit = useEvent(updateMeasurementUnitFx);
+  const deleteMeasurementUnit = useEvent(deleteMeasurementUnitFx);
 
   useEffect(() => {
-    getUnits().catch();
-  }, []);
-
-  useEffect(() => {
-    setUnits(allUnits.filter(el => el.group.uuid === group.uuid));
-  }, [group, allUnits]);
-
-  useEffect(() => {
-    replace(units);
-  }, [units]);
+    replace(filteredUnits);
+    setRangeValues(() =>
+      filteredUnits.map((el, i) => ({
+        ...el,
+        idx: i,
+      })),
+    );
+    setRangeValue(null);
+    setActive(new Array(filteredUnits.length).fill(false));
+  }, [filteredUnits]);
 
   const onAdd = async () => {
-    const newUnit = await createUnit(group, 'NAME', 0, -10, false, 10, false);
-    if (newUnit) {
-      setUnits(units => [
-        ...units,
-        {
-          uuid: newUnit.uuid,
-          name: newUnit.name,
-          multiplier: newUnit.multiplier,
-          min_value: newUnit.min_value,
-          min_is_included: newUnit.min_is_included,
-          max_value: newUnit.max_value,
-          max_is_included: newUnit.max_is_included,
-          group: newUnit.group,
-        },
-      ]);
+    append({});
+  };
+
+  const updateUnitByName = async (e: ChangeEvent<HTMLInputElement>) => {
+    const newName = e.target.value;
+
+    if (!newName) {
+      replace(filteredUnits);
+    } else if (filteredUnits.length !== fields.length) {
+      await createMeasurementUnit({
+        group,
+        name: newName,
+        multiplier: 0,
+        minValue: -10,
+        minIsIncluded: false,
+        maxValue: 0,
+        maxIsIncluded: false,
+      });
+    } else {
+      const updated = filteredUnits[Number(e.target.id.split('.')[0])];
+      await updateMeasurementUnit(
+        camelToSnake<IUnit>({
+          ...updated,
+          name: e.target.value,
+          group,
+        }),
+      );
     }
   };
 
-  const updateUnit = async () =>
-    // e: ChangeEvent<HTMLInputElement>
-    // { uuid, name, multiplier, minValue, minIsIncluded, maxValue, maxIsIncluded, group }: IUnit,
-    {
-      // if (e.target.id.split('-')[1] === 'reduction') {
-      // try {
-      //   await api.put<{ data: IUnit }>(`/measurement/unit/${uuid}/`, {
-      //     name: e.target.value,
-      //     multiplier,
-      //     min_value: minValue,
-      //     min_is_included: minIsIncluded,
-      //     max_value: maxValue,
-      //     max_is_included: maxIsIncluded,
-      //     group: group.uuid,
-      //   });
-      // } catch (e) {}
-      // setUnits(prev => {
-      //   prev[Number(e.target.id.split('-')[0])].name = e.target.value;
-      //   // eslint-disable-next-line no-console
-      //   console.log(prev);
-      //   return prev;
-      // });
-      // }
-      // try {
-      //   await api.put<{ data: IUnit }>(`/measurement/unit/${uuid}/`, {
-      //     name,
-      //     multiplier,
-      //     min_value: minValue,
-      //     min_is_included: minIsIncluded,
-      //     max_value: maxValue,
-      //     max_is_included: maxIsIncluded,
-      //     group,
-      //   });
-      // } catch (e) {}
-    };
+  const updateMultiplier = async (e: React.FocusEvent<HTMLInputElement>, data: IUnit) => {
+    await updateMeasurementUnit(
+      camelToSnake({
+        ...data,
+        multiplier: Number(e.target.value),
+        group,
+      }),
+    );
+  };
+
+  const handleDelete = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, uuid: string) => {
+    e.preventDefault();
+    await deleteMeasurementUnit(uuid);
+  };
+
+  const updateRange = async (res: IRange) => {
+    const data = filteredUnits[res.idx ? res.idx : 0];
+    await updateMeasurementUnit({
+      ...data,
+      minValue: res.minValue ? res.minValue : 0,
+      minIsIncluded: res.minIsIncluded ? res.minIsIncluded : false,
+      maxValue: res.maxValue ? res.maxValue : 0,
+      maxIsIncluded: res.maxIsIncluded ? res.maxIsIncluded : false,
+    });
+
+    setRangeValue(null);
+    setActive(prev => prev.fill(false));
+  };
+
+  const defaultRangeValue = (value: IRange) => {
+    return `${value.minIsIncluded ? '[' : '('} ${value.minValue}, ${value.maxValue} ${
+      value.maxIsIncluded ? ']' : ')'
+    }`;
+  };
 
   return (
     <>
@@ -161,95 +139,49 @@ export const ReductionTable: React.FC<IProps> = ({ group }) => {
         <InputWrapper>
           <form>
             {fields.map((el, i) => (
-              <>
+              <Row>
                 <Input
                   {...register(`fields.${i}.reduction` as any)}
                   id={`${i}.reduction`}
-                  // onChange={e => updateUnit(e)}
-                  onBlur={() => updateUnit()}
+                  onBlur={e => updateUnitByName(e)}
                   key={`fields.${el.id}.reduction`}
-                  defaultValue={units[i]?.name}
+                  defaultValue={filteredUnits[i]?.name}
                 />
                 <Input
                   {...register(`fields.${i}.multiplier` as any)}
-                  // id={`${i}-multiplier`}
-                  // onChange={() => {}}
+                  id={`${i}-multiplier`}
+                  onBlur={e => updateMultiplier(e, filteredUnits[i])}
                   key={`fields.${el.id}.multiplier`}
-                  defaultValue={units[i]?.multiplier}
+                  defaultValue={filteredUnits[i]?.multiplier}
                 />
                 <Input
                   {...register(`fields.${i}.range` as any)}
-                  // id={`${i}-range`}
-                  // onChange={() => {}}
+                  id={`${i}-range`}
+                  onClick={() => {
+                    setRangeValue(rangeValues[i]);
+                    active[i] = true;
+                  }}
+                  active={active[i]}
+                  readOnly
                   key={`fields.${el.id}.range`}
-                  defaultValue={units[i]?.min_value}
+                  defaultValue={rangeValues[i] ? defaultRangeValue(rangeValues[i]) : ''}
                 />
-              </>
+                <DeleteBtn onClick={e => handleDelete(e, filteredUnits[i].uuid)}>&times;</DeleteBtn>
+              </Row>
             ))}
           </form>
         </InputWrapper>
         <AddButton onClick={onAdd}>
           <Plus />
         </AddButton>
+        <Wrapper>
+          <RangeInput
+            value={rangeValue}
+            handleSubmit={updateRange}
+            disabled={!rangeValue?.maxValue?.toString().length}
+          />
+        </Wrapper>
       </Container>
     </>
   );
 };
-
-// const onChangeReduct = (e: ChangeEvent<HTMLInputElement>) => {
-//   const idx = Number(e.target.id[0]);
-//   const field: 'reduction' | 'multiplier' | 'range' = e.target.id.slice(2);
-//   // eslint-disable-next-line no-console
-//   // console.log(field);
-//   setValue(() => {
-//     value[idx][field] = e.target.value;
-//     return value;
-//   });
-// };
-
-// const addProducer = () => setSelected({ uuid: '', name: '', description: '' });
-
-// const onSelect = (manufacturer: { uuid: string; name: string; description: string }) => {
-//   setSelected(manufacturer);
-// };
-
-// const handleSubmit = async (name: string, description: string) => {
-//   // eslint-disable-next-line no-console
-//   console.log(name, description);
-//
-//   if (selected?.uuid) {
-//     await updateManufacturer({ uuid: selected.uuid, name, description });
-//     setManufacturers(manufacturer =>
-//       manufacturer.map(manufacturer =>
-//         manufacturer.uuid === selected.uuid
-//           ? { uuid: manufacturer.uuid, name, description }
-//           : manufacturer,
-//       ),
-//     );
-//   } else {
-//     const newManufacturer = await createManufacturer(name, description);
-//     // eslint-disable-next-line no-console
-//     console.log(newManufacturer);
-//     if (newManufacturer) {
-//       setManufacturers(manufacturers => [
-//         ...manufacturers,
-//         {
-//           uuid: newManufacturer.uuid,
-//           name: newManufacturer.name,
-//           description: newManufacturer.description,
-//         },
-//       ]);
-//     }
-//   }
-// };
-
-// const deleteUnit = async (uuid: string) => {
-//   try {
-//     await api.delete<{ data: IUnit }>(`/measurement/unit/${uuid}/`);
-//   } catch (e) {}
-// };
-
-// const handleDelete = async (uuid: string) => {
-//   setUnits(units => units.filter(el => el.uuid !== uuid));
-//   await deleteUnit(uuid);
-// };

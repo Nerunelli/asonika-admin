@@ -3,9 +3,8 @@ import { Input } from '../../ui-kit/Input';
 import { TextArea } from '../../ui-kit/TextArea';
 import { Button } from '../../ui-kit/Button';
 import { ReductionTable } from '../ReductionTable';
-import { IGroup } from '../../pages/Reductions';
 import { ButtonsWrapper, Container, Wrapper } from './styled';
-import { RangeInput } from '../../ui-kit/RangeInput';
+import { IGroup } from '../../data/measurement/groups/types';
 
 // eslint-disable-next-line no-unused-vars
 type onSubmitFunc = (name: string, description: string) => void;
@@ -21,10 +20,6 @@ interface IProps {
 export const EditReductionForm: React.FC<IProps> = ({ handleSubmit, handleDelete, group }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  // eslint-disable-next-line no-unused-vars
-  const [leftRangeValue, setLeftRangeValue] = useState('');
-  // eslint-disable-next-line no-unused-vars
-  const [rightRangeValue, setRightRangeValue] = useState('');
 
   useEffect(() => {
     setName(group.name);
@@ -52,15 +47,6 @@ export const EditReductionForm: React.FC<IProps> = ({ handleSubmit, handleDelete
           <TextArea value={description} onChange={e => setDescription(e.target.value)} />
         </Wrapper>
         <ReductionTable group={group} />
-        <Wrapper>
-          <RangeInput
-            leftValue={leftRangeValue}
-            onChangeLeft={e => setLeftRangeValue(e.target.value)}
-            onChangeRight={e => setRightRangeValue(e.target.value)}
-            rightValue={rightRangeValue}
-            // disabled
-          />
-        </Wrapper>
         <ButtonsWrapper>
           <Button width="120px" isForm>
             Сохранить

@@ -13,7 +13,7 @@ export const Sidebar: React.FC<IProps> = ({ isOpened, onClose }) => {
     <Wrapper isOpened={isOpened}>
       <Background isOpened={isOpened} />
       <Container isOpened={isOpened}>
-        {categoriesData.map((link, i) => (
+        {Object.values(categoriesData).map((link, i) => (
           <BtnWrapper to={link.href} onClick={onClose} key={`${link.href}-${i}`}>
             <Button width="360px" height="60px">
               {link.title}

@@ -1,115 +1,67 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
 import { ParamsItem } from '../../components/ParamsItem';
-// import { EditForm } from '../../components/EditForm';
 import { Button } from '../../ui-kit/Button';
 import { ButtonsWrap, ItemsContainer, ItemWrapper, ReductionsContainer } from './styled';
-import { api } from '../../api/api';
 import { EditReductionForm } from '../../components/EditReductionForm';
-
-export interface IGroup {
-  uuid: string;
-  name: string;
-  description: string;
-}
+import { $measurementGroupsStore, $selectedGroupStore } from '../../data/measurement/groups/stores';
+import { useEvent, useStore } from 'effector-react';
+import {
+  createMeasurementGroupFx,
+  deleteMeasurementGroupFx,
+  loadAllMeasurementGroupsFx,
+  updateMeasurementGroupFx,
+} from '../../data/measurement/groups/effects';
+import { loadAllMeasurementUnitsFx } from '../../data/measurement/units/effects';
+import { clearStoreEv, selectGroupEv } from '../../data/measurement/groups/events';
+import { categoriesData } from '../../components/Groups/data';
 
 export const Reductions: React.FC = () => {
-  const [groups, setGroups] = useState<IGroup[]>([]);
-  const [selected, setSelected] = useState<IGroup | null>();
+  const selectedGroup = useStore($selectedGroupStore);
 
-  const getMeasurementGroups = async () => {
-    try {
-      const res = await api.get<{ data: IGroup[] }>('/measurement/group/');
-      setGroups(res.data.data);
-    } catch (e) {}
-  };
+  const groups = useStore($measurementGroupsStore);
 
-  const createMeasurementGroup = async (
-    name: string,
-    description: string,
-  ): Promise<IGroup | null> => {
-    try {
-      const res = await api.post('/measurement/group/', {
-        name,
-        description,
-      });
+  const loadAllMeasurementUnits = useEvent(loadAllMeasurementUnitsFx);
+  const clearStore = useEvent(clearStoreEv);
 
-      return res.data.data;
-    } catch (e) {}
-
-    return null;
-  };
-
-  const updateMeasurementGroup = async ({ uuid, description, name }: IGroup) => {
-    try {
-      await api.put<{ data: IGroup }>(`/measurement/group/${uuid}/`, { description, name });
-    } catch (e) {}
-  };
-
-  const deleteMeasurementGroup = async (uuid: string) => {
-    try {
-      await api.delete<{ data: IGroup }>(`/measurement/group/${uuid}/`);
-    } catch (e) {}
-    setSelected(null);
-  };
+  const loadAllMeasurementGroups = useEvent(loadAllMeasurementGroupsFx);
+  const createMeasurementGroup = useEvent(createMeasurementGroupFx);
+  const updateMeasurementGroup = useEvent(updateMeasurementGroupFx);
+  const deleteMeasurementGroup = useEvent(deleteMeasurementGroupFx);
+  const selectGroup = useEvent(selectGroupEv);
 
   useEffect(() => {
-    // createMeasurementGroups('3 group', '3 description').catch(console.error);
-    getMeasurementGroups().catch(console.error);
+    loadAllMeasurementGroups().catch(console.error);
+    loadAllMeasurementUnits().catch(console.error);
+    return clearStore;
   }, []);
 
-  const addReduction = () => setSelected({ uuid: '', name: '', description: '' });
+  const addReduction = () => selectGroup({ uuid: '', name: '', description: '' });
 
   const onSelect = (group: { uuid: string; name: string; description: string }) => {
-    setSelected(group);
-    // eslint-disable-next-line no-console
-    // console.log(group.uuid);
+    selectGroup(group);
   };
 
   const handleSubmit = async (name: string, description: string) => {
-    // eslint-disable-next-line no-console
-    console.log(name, description);
-
-    if (selected?.uuid) {
-      await updateMeasurementGroup({ uuid: selected.uuid, name, description });
-      setGroups(groups =>
-        groups.map(group =>
-          group.uuid === selected.uuid ? { uuid: group.uuid, name, description } : group,
-        ),
-      );
-      // getMeasurementGroups().catch(console.error);
+    if (selectedGroup?.uuid) {
+      updateMeasurementGroup({ uuid: selectedGroup.uuid, name, description });
     } else {
-      const newGroup = await createMeasurementGroup(name, description);
-      // eslint-disable-next-line no-console
-      console.log(newGroup);
-      if (newGroup) {
-        setGroups(groups => [
-          ...groups,
-          { uuid: newGroup.uuid, name: newGroup.name, description: newGroup.description },
-        ]);
-      }
-      setSelected(null);
+      const created = await createMeasurementGroup({ name, description });
+      selectGroup(created);
     }
   };
 
   const handleDelete = async (uuid: string) => {
-    setGroups(groups => groups.filter(el => el.uuid !== uuid));
     await deleteMeasurementGroup(uuid);
+    selectGroup(null);
   };
 
   return (
     <>
-      <Breadcrumbs
-        data={[
-          {
-            link: '/reductions',
-            title: 'Сокращения',
-          },
-        ]}
-      />
+      <Breadcrumbs data={[categoriesData.reductions]} />
       <ButtonsWrap>
-        <Button onClick={addReduction} width="220px">
-          Добавить сокращение
+        <Button onClick={addReduction} width="260px">
+          Добавить единицу измерения
         </Button>
       </ButtonsWrap>
       <ReductionsContainer>
@@ -122,9 +74,9 @@ export const Reductions: React.FC = () => {
             ))}
           </ItemsContainer>
         ) : null}
-        {selected && (
+        {selectedGroup && (
           <EditReductionForm
-            group={selected}
+            group={selectedGroup}
             handleSubmit={handleSubmit}
             handleDelete={handleDelete}
           />

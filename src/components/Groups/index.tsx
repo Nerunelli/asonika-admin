@@ -6,7 +6,7 @@ import { categoriesData } from './data';
 export const Groups: React.FC = () => {
   return (
     <Wrapper>
-      {categoriesData.map((cat, i) => (
+      {Object.values(categoriesData).map((cat, i) => (
         <ButtonWrapper to={cat.href} key={`${cat.title}-${i}`}>
           <Button width="350px" height="58px">
             {cat.title}

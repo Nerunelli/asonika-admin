@@ -12,6 +12,8 @@ export const Container = styled.div`
     padding: 0 16px;
   `}
 `;
+// box-shadow: ${active ? 'none' : shadow.main};
+// background-color: ${active ? colors.greySuperLightAlpha : '#fff'};
 
 export const Arrow = styled.div`
   width: 9px;
@@ -24,7 +26,7 @@ export const Arrow = styled.div`
 
 export const Title = styled.div`
   user-select: none;
-  margin-left: 10px;
+  //margin-left: 10px;
   color: #707070;
   font-family: 'Roboto', sans-serif;
   font-size: 16px;

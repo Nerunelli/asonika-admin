@@ -1,30 +1,32 @@
-import React, { ChangeEvent, useState } from 'react';
-import { ButtonWrapper, LeftField, RightField, Wrapper } from './styled';
+import React, { useEffect, useState } from 'react';
+import { ButtonWrapper, CheckMark, LeftField, RightField, Wrapper } from './styled';
 import { Button } from '../Button';
+import { useForm } from 'react-hook-form';
+import { IRange } from '../../components/ReductionTable';
 
-const left = ['[', '('];
-const right = [']', ')'];
-
-// eslint-disable-next-line no-unused-vars
-type onChangeFunc = (event: ChangeEvent<HTMLInputElement>) => void;
+const left = ['(', '['];
+const right = [')', ']'];
 
 interface IProps {
-  leftValue: string;
-  rightValue: string;
-  onChangeLeft: onChangeFunc;
-  onChangeRight: onChangeFunc;
   disabled?: boolean;
+  value: IRange | null;
+  handleSubmit: (_: IRange) => void;
 }
 
-export const RangeInput: React.FC<IProps> = ({
-  disabled = false,
-  leftValue,
-  rightValue,
-  onChangeLeft,
-  onChangeRight,
-}) => {
+export const RangeInput: React.FC<IProps> = ({ disabled = false, value, handleSubmit }) => {
   const [leftBrIdx, setLeftBrIdx] = useState(0);
   const [rightBrIdx, setRightBrIdx] = useState(0);
+  const [innerValue, setInnerValue] = useState(value);
+  const { register, watch, setValue, resetField } = useForm();
+
+  useEffect(() => {
+    setInnerValue(value);
+  }, [value]);
+
+  useEffect(() => {
+    setValue(`min`, innerValue?.minValue ?? '');
+    setValue(`max`, innerValue?.maxValue ?? '');
+  }, [innerValue]);
 
   const changeBracket = (rightSide: boolean) => {
     if (rightSide) {
@@ -32,6 +34,18 @@ export const RangeInput: React.FC<IProps> = ({
     } else {
       setLeftBrIdx(prev => (prev + 1) % 2);
     }
+  };
+
+  const onSubmit = () => {
+    handleSubmit({
+      idx: value ? value.idx : 0,
+      minIsIncluded: Boolean(leftBrIdx),
+      minValue: Number(watch(`min`)),
+      maxValue: Number(watch(`max`)),
+      maxIsIncluded: Boolean(rightBrIdx),
+    });
+    resetField('min');
+    resetField('max');
   };
 
   return (
@@ -47,8 +61,18 @@ export const RangeInput: React.FC<IProps> = ({
         </Button>
       </ButtonWrapper>
       <ButtonWrapper>
-        <LeftField value={leftValue} disabled={disabled} onChange={onChangeLeft} />
-        <RightField value={rightValue} disabled={disabled} onChange={onChangeRight} />
+        <form>
+          <LeftField
+            {...register(`min`)}
+            defaultValue={innerValue ? innerValue.minValue : ''}
+            disabled={disabled}
+          />
+          <RightField
+            {...register(`max`)}
+            defaultValue={innerValue ? innerValue.maxValue : ''}
+            disabled={disabled}
+          />
+        </form>
       </ButtonWrapper>
       <ButtonWrapper>
         <Button
@@ -58,6 +82,11 @@ export const RangeInput: React.FC<IProps> = ({
           disabled={disabled}
         >
           {right[rightBrIdx]}
+        </Button>
+      </ButtonWrapper>
+      <ButtonWrapper>
+        <Button width="38px" variant="transparent" onClick={onSubmit} disabled={disabled}>
+          <CheckMark />
         </Button>
       </ButtonWrapper>
     </Wrapper>

@@ -5,6 +5,7 @@ import { Button } from '../../ui-kit/Button';
 import { ButtonsWrap, ItemsContainer, ItemWrapper, SpecificationsContainer } from './styled';
 import { api } from '../../api/api';
 import { EditSpecificationForm } from '../../components/EditSpecificationForm';
+import { categoriesData } from '../../components/Groups/data';
 
 export interface ISpecifications {
   uuid: string;
@@ -106,14 +107,7 @@ export const Specifications: React.FC = () => {
 
   return (
     <>
-      <Breadcrumbs
-        data={[
-          {
-            link: '/specifications',
-            title: 'ТУ',
-          },
-        ]}
-      />
+      <Breadcrumbs data={[categoriesData.specifications]} />
       <ButtonsWrap>
         <Button onClick={addSpecification} width="220px">
           Добавить спецификацию{' '}

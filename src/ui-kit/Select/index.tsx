@@ -1,6 +1,6 @@
 import React, { useEffect, useState, MouseEvent } from 'react';
 import { Arrow, Wrapper, Text, Options, OptionsItem } from './styled';
-import { IGroup } from '../../pages/Reductions';
+import { IGroup } from '../../data/measurement/groups/types';
 
 interface Props {
   placeholder: string;

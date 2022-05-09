@@ -31,13 +31,15 @@ export const Btn = styled.button<IBtn>`
     color: ${variant === 'transparent' ? theme.colors.greyDark : '#fff'};
     border-radius: 10px;
     border: ${variant === 'transparent' ? `1px solid ${theme.colors.greyDarkAlpha}` : 'none'};
-    cursor: pointer;
+    cursor: ${disabled ? 'default' : 'pointer'};
     user-select: none;
     &:last-child {
       margin-bottom: 0;
     }
     &:active {
-      background: ${variant === 'normal'
+      background: ${disabled
+        ? theme.colors.greyLightAlpha
+        : variant === 'normal'
         ? theme.colors.darkGreen
         : variant === 'danger'
         ? theme.colors.darkRed

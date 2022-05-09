@@ -11,7 +11,6 @@ export const HeaderContainer = styled.div`
     width: 100%;
     border-radius: 10px 10px 0 0;
     border: 1px solid ${colors.greyDarkAlpha};
-    //padding: 20px;
     height: 100%;
   `}
 `;
@@ -26,8 +25,8 @@ export const Header = styled.div`
   font-size: 16px;
 `;
 
-export const Input = styled.input`
-  ${({ theme: { colors } }) => css`
+export const Input = styled.input<{ active?: boolean }>`
+  ${({ active, theme: { colors } }) => css`
     border-radius: 0;
     height: 38px;
     border: 1px solid ${colors.greyDarkAlpha};
@@ -35,6 +34,7 @@ export const Input = styled.input`
     padding: 0 10px;
     color: ${colors.greyDark};
     margin-top: -1px;
+    background-color: ${active ? colors.lightGreenAlpha : ''};
 
     &:focus {
       outline: none;
@@ -46,6 +46,15 @@ export const Input = styled.input`
 
 export const InputWrapper = styled.div`
   width: 100%;
+`;
+
+export const Wrapper = styled.div`
+  width: 100%;
+  margin-bottom: 20px;
+`;
+
+export const Row = styled.div`
+  position: relative;
 `;
 
 export const Plus = styled.div`
@@ -60,6 +69,7 @@ export const Plus = styled.div`
 export const AddButton = styled.button`
   ${({ theme: { colors } }) => css`
     display: flex;
+    cursor: pointer;
     align-items: center;
     justify-content: center;
     width: 80px;
@@ -68,5 +78,30 @@ export const AddButton = styled.button`
     border-radius: 0 0 10px 10px;
     border: 1px solid ${colors.greyDarkAlpha};
     margin-top: -1px;
+  `}
+`;
+
+export const DeleteBtn = styled.button`
+  ${({ theme: { colors } }) => css`
+    cursor: pointer;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: #fff;
+    border-radius: 50%;
+    border: none;
+    margin-left: -15px;
+    margin-top: 2px;
+    font-size: 26px;
+    color: #fff;
+    visibility: hidden;
+    transition-property: color, border;
+    transition-duration: 0.1s;
+    transition-timing-function: linear;
+    ${Row}:hover & {
+      visibility: visible;
+      color: ${colors.red};
+      border: 1px solid ${colors.greyDarkAlpha};
+    }
   `}
 `;
