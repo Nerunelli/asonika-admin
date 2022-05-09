@@ -11,7 +11,6 @@ export const HeaderContainer = styled.div`
     width: 100%;
     border-radius: 10px 10px 0 0;
     border: 1px solid ${colors.greyDarkAlpha};
-    //padding: 20px;
     height: 100%;
   `}
 `;
@@ -47,7 +46,6 @@ export const Input = styled.input<{ active?: boolean }>`
 
 export const InputWrapper = styled.div`
   width: 100%;
-  //position: relative;
 `;
 
 export const Wrapper = styled.div`
@@ -56,7 +54,6 @@ export const Wrapper = styled.div`
 `;
 
 export const Row = styled.div`
-  //width: 100%;
   position: relative;
 `;
 
@@ -86,11 +83,8 @@ export const AddButton = styled.button`
 
 export const DeleteBtn = styled.button`
   ${({ theme: { colors } }) => css`
-    //display: flex;
     cursor: pointer;
     position: absolute;
-    //align-items: center;
-    //justify-content: center;
     width: 30px;
     height: 30px;
     background-color: #fff;

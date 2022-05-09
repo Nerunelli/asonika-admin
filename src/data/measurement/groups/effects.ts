@@ -9,20 +9,14 @@ export const loadAllMeasurementGroupsFx = createEffect<void, IGroup[]>(async () 
 
 export const createMeasurementGroupFx = createEffect<Omit<IGroup, 'uuid'>, IGroup>(
   async payload => {
-    const res = await api.post('/measurement/group/', {
-      name: payload.name,
-      description: payload.description,
-    });
+    const res = await api.post('/measurement/group/', payload);
 
     return res.data.data;
   },
 );
 
 export const updateMeasurementGroupFx = createEffect<IGroup, IGroup>(async payload => {
-  await api.put(`/measurement/group/${payload.uuid}/`, {
-    description: payload.description,
-    name: payload.name,
-  });
+  await api.put(`/measurement/group/${payload.uuid}/`, payload);
 
   return payload;
 });

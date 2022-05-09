@@ -16,7 +16,7 @@ import { loadAllMeasurementUnitsFx } from '../../data/measurement/units/effects'
 import { clearStoreEv, selectGroupEv } from '../../data/measurement/groups/events';
 
 export const Reductions: React.FC = () => {
-  const selected = useStore($selectedGroupStore);
+  const selectedGroup = useStore($selectedGroupStore);
 
   const groups = useStore($measurementGroupsStore);
 
@@ -42,8 +42,8 @@ export const Reductions: React.FC = () => {
   };
 
   const handleSubmit = async (name: string, description: string) => {
-    if (selected?.uuid) {
-      updateMeasurementGroup({ uuid: selected.uuid, name, description });
+    if (selectedGroup?.uuid) {
+      updateMeasurementGroup({ uuid: selectedGroup.uuid, name, description });
     } else {
       const created = await createMeasurementGroup({ name, description });
       selectGroup(created);
@@ -80,9 +80,9 @@ export const Reductions: React.FC = () => {
             ))}
           </ItemsContainer>
         ) : null}
-        {selected && (
+        {selectedGroup && (
           <EditReductionForm
-            group={selected}
+            group={selectedGroup}
             handleSubmit={handleSubmit}
             handleDelete={handleDelete}
           />

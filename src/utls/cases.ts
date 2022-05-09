@@ -31,11 +31,11 @@ const convertToSnake = (str: string): string => {
     .join('');
 };
 
-export const camelToSnake = (obj: Record<string, unknown>): Record<string, unknown> => {
+export const camelToSnake = <T>(obj: Record<string, unknown>): T => {
   return Object.keys(obj).reduce((acc, cur) => {
     if (isCamelCase(cur)) {
       return { ...acc, [convertToSnake(cur)]: obj[cur] };
     }
     return { ...acc, [cur]: obj[cur] };
-  }, {});
+  }, {}) as T;
 };

@@ -9,7 +9,6 @@ export const Container = styled.form`
     padding: 20px;
     height: 100%;
     margin-bottom: 50px;
-    //margin-left: 30px;
   `}
 `;
 

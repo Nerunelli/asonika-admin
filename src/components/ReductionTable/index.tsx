@@ -23,23 +23,24 @@ import { $unitsByGroupStore } from '../../data/measurement/units/stores';
 import { useEvent, useStore } from 'effector-react';
 import { IGroup } from '../../data/measurement/groups/types';
 import { IUnit } from '../../data/measurement/units/types';
+import { camelToSnake } from '../../utls/cases';
 
 interface IProps {
   group: IGroup;
 }
 
 export interface IRange {
-  idx?: number;
-  minIsIncluded?: boolean;
-  minValue?: number;
-  maxValue?: number;
-  maxIsIncluded?: boolean;
+  idx: number;
+  minIsIncluded: boolean;
+  minValue: number;
+  maxValue: number;
+  maxIsIncluded: boolean;
 }
 
 export const ReductionTable: React.FC<IProps> = ({ group }) => {
-  const { register, control, watch } = useForm();
+  const { register, control } = useForm();
   const { fields, replace, append } = useFieldArray({ control, name: 'fields' });
-  const [rangeValue, setRangeValue] = useState<IRange | null>({});
+  const [rangeValue, setRangeValue] = useState<IRange | null>(null);
   const [rangeValues, setRangeValues] = useState<IRange[]>([]);
   const [active, setActive] = useState<boolean[]>([]);
 
@@ -53,14 +54,11 @@ export const ReductionTable: React.FC<IProps> = ({ group }) => {
     replace(filteredUnits);
     setRangeValues(() =>
       filteredUnits.map((el, i) => ({
+        ...el,
         idx: i,
-        minIsIncluded: el.minIsIncluded,
-        minValue: el.minValue,
-        maxValue: el.maxValue,
-        maxIsIncluded: el.maxIsIncluded,
       })),
     );
-    setRangeValue({});
+    setRangeValue(null);
     setActive(new Array(filteredUnits.length).fill(false));
   }, [filteredUnits]);
 
@@ -69,7 +67,7 @@ export const ReductionTable: React.FC<IProps> = ({ group }) => {
   };
 
   const updateUnitByName = async (e: ChangeEvent<HTMLInputElement>) => {
-    const newName = watch(`fields.${e.target.id}` as any);
+    const newName = e.target.value;
 
     if (!newName) {
       replace(filteredUnits);
@@ -84,27 +82,25 @@ export const ReductionTable: React.FC<IProps> = ({ group }) => {
         maxIsIncluded: false,
       });
     } else {
-      const { uuid, multiplier, minValue, minIsIncluded, maxValue, maxIsIncluded, group } =
-        filteredUnits[Number(e.target.id.split('.')[0])];
-      await updateMeasurementUnit({
-        uuid,
-        name: e.target.value,
-        multiplier,
-        minValue,
-        minIsIncluded,
-        maxValue,
-        maxIsIncluded,
-        group,
-      });
+      const updated = filteredUnits[Number(e.target.id.split('.')[0])];
+      await updateMeasurementUnit(
+        camelToSnake<IUnit>({
+          ...updated,
+          name: e.target.value,
+          group,
+        }),
+      );
     }
   };
 
   const updateMultiplier = async (e: React.FocusEvent<HTMLInputElement>, data: IUnit) => {
-    await updateMeasurementUnit({
-      ...data,
-      multiplier: Number(e.target.value),
-      group,
-    });
+    await updateMeasurementUnit(
+      camelToSnake({
+        ...data,
+        multiplier: Number(e.target.value),
+        group,
+      }),
+    );
   };
 
   const handleDelete = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, uuid: string) => {
@@ -115,18 +111,21 @@ export const ReductionTable: React.FC<IProps> = ({ group }) => {
   const updateRange = async (res: IRange) => {
     const data = filteredUnits[res.idx ? res.idx : 0];
     await updateMeasurementUnit({
-      uuid: data.uuid,
-      name: data.name,
-      multiplier: data.multiplier,
+      ...data,
       minValue: res.minValue ? res.minValue : 0,
       minIsIncluded: res.minIsIncluded ? res.minIsIncluded : false,
       maxValue: res.maxValue ? res.maxValue : 0,
       maxIsIncluded: res.maxIsIncluded ? res.maxIsIncluded : false,
-      group: data.group,
     });
 
-    setRangeValue({});
+    setRangeValue(null);
     setActive(prev => prev.fill(false));
+  };
+
+  const defaultRangeValue = (value: IRange) => {
+    return `${value.minIsIncluded ? '[' : '('} ${value.minValue}, ${value.maxValue} ${
+      value.maxIsIncluded ? ']' : ')'
+    }`;
   };
 
   return (
@@ -165,13 +164,7 @@ export const ReductionTable: React.FC<IProps> = ({ group }) => {
                   active={active[i]}
                   readOnly
                   key={`fields.${el.id}.range`}
-                  defaultValue={
-                    rangeValues[i]
-                      ? `${rangeValues[i]?.minIsIncluded ? '[' : '('} ${
-                          rangeValues[i]?.minValue
-                        }, ${rangeValues[i]?.maxValue} ${rangeValues[i]?.maxIsIncluded ? ']' : ')'}`
-                      : ''
-                  }
+                  defaultValue={rangeValues[i] ? defaultRangeValue(rangeValues[i]) : ''}
                 />
                 <DeleteBtn onClick={e => handleDelete(e, filteredUnits[i].uuid)}>&times;</DeleteBtn>
               </Row>

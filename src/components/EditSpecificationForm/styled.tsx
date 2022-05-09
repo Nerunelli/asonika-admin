@@ -8,7 +8,6 @@ export const Container = styled.form`
     box-shadow: ${shadow.main};
     padding: 20px;
     height: 100%;
-    //margin-left: 30px;
   `}
 `;
 
