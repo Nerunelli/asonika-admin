@@ -87,9 +87,9 @@ export const Parameters: React.FC = () => {
         <Button onClick={addParam} width="220px">
           Добавить параметр
         </Button>
-        <Button variant="danger" width="220px">
-          Удалить выбранные
-        </Button>
+        {/* <Button variant="danger" width="220px"> */}
+        {/*  Удалить выбранные */}
+        {/* </Button> */}
       </ButtonsWrap>
       <ParamsContainer>
         {parameters.length ? (
