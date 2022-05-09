@@ -11,7 +11,7 @@ const isSnakeCase = (str: string): boolean => {
   return str.indexOf('_') !== -1;
 };
 
-export const snakeToCamel = <T>(obj: Record<string, unknown>): T => {
+export const snakeToCamel = <T>(obj: Record<string, any>): T => {
   return Object.keys(obj).reduce((acc, cur) => {
     if (isSnakeCase(cur)) {
       return { ...acc, [convertToCamel(cur)]: obj[cur] };
@@ -31,7 +31,7 @@ const convertToSnake = (str: string): string => {
     .join('');
 };
 
-export const camelToSnake = <T>(obj: Record<string, unknown>): T => {
+export const camelToSnake = <T>(obj: Record<string, any>): T => {
   return Object.keys(obj).reduce((acc, cur) => {
     if (isCamelCase(cur)) {
       return { ...acc, [convertToSnake(cur)]: obj[cur] };

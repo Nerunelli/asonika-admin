@@ -20,3 +20,11 @@ export const ButtonsWrapper = styled.div`
   display: flex;
   justify-content: space-between;
 `;
+
+export const Warning = styled.div`
+  ${({ theme: { colors } }) => css`
+    margin-bottom: 20px;
+    line-height: 1.2;
+    color: ${colors.darkGreen};
+  `}
+`;

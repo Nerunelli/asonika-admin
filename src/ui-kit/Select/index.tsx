@@ -4,13 +4,13 @@ import { IGroup } from '../../data/measurement/groups/types';
 
 interface Props {
   placeholder: string;
-  value?: string;
+  value?: IGroup;
   names?: IGroup[];
-  // eslint-disable-next-line no-unused-vars
-  onChange?: (value: IGroup) => void;
+  hasError?: boolean;
+  onChange?: (_value: IGroup) => void;
 }
 
-export const Select: React.FC<Props> = ({ value, placeholder, names, onChange }) => {
+export const Select: React.FC<Props> = ({ value, placeholder, names, hasError, onChange }) => {
   const [open, setOpen] = useState(false);
 
   const onSelectClick = (event: MouseEvent<HTMLDivElement>) => {
@@ -41,8 +41,8 @@ export const Select: React.FC<Props> = ({ value, placeholder, names, onChange })
 
   return (
     <>
-      <Wrapper disabled={!names} id="select" onClick={e => onSelectClick(e)}>
-        <Text empty={!value}>{value || placeholder}</Text>
+      <Wrapper isError={hasError} disabled={!names} id="select" onClick={e => onSelectClick(e)}>
+        <Text empty={!value?.name}>{value?.name || placeholder}</Text>
         <Arrow />
       </Wrapper>
       <Options open={open}>

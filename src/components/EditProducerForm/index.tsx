@@ -26,11 +26,14 @@ const schema = yup
   .required();
 
 export const EditProducerForm: React.FC<IProps> = ({ onSubmit, onDelete, group }) => {
-  const { handleSubmit, control, setValue } = useForm<{ name: string; description: string }>({
-    resolver: yupResolver(schema),
-  });
+  const { handleSubmit, control, setValue, reset } = useForm<{ name: string; description: string }>(
+    {
+      resolver: yupResolver(schema),
+    },
+  );
 
   useEffect(() => {
+    reset();
     setValue('name', group.name);
     setValue('description', group.description);
   }, [group]);

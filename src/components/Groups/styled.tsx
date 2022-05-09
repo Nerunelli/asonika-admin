@@ -15,6 +15,7 @@ export const Wrapper = styled.div`
 export const ButtonWrapper = styled(Link)`
   margin-bottom: 20px;
   text-decoration: none;
+  -webkit-user-drag: none;
 
   &:last-child {
     margin-bottom: 0;
