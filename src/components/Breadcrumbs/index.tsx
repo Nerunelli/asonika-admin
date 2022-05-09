@@ -1,9 +1,9 @@
 import { Container, CrumbImg, CrumbItem } from './styled';
 import React, { Fragment } from 'react';
-import { BreadcrumbsData } from '../../utls/types';
+import { ICategoriesLink } from '../Groups/data';
 
 interface IProps {
-  data?: BreadcrumbsData[];
+  data?: ICategoriesLink[];
 }
 
 export const Breadcrumbs: React.FC<IProps> = ({ data }) => {
@@ -11,10 +11,10 @@ export const Breadcrumbs: React.FC<IProps> = ({ data }) => {
     <>
       <Container>
         <CrumbItem to="/">Главная</CrumbItem>
-        {data?.map(({ link, title }, idx) => (
+        {data?.map(({ href, title }, idx) => (
           <Fragment key={`BreadcrumbItem-${idx}`}>
             <CrumbImg />
-            <CrumbItem to={link}>{title}</CrumbItem>
+            <CrumbItem to={href}>{title}</CrumbItem>
           </Fragment>
         ))}
       </Container>

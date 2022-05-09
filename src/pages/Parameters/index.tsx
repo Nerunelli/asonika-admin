@@ -14,6 +14,7 @@ import {
   updateParameterFx,
 } from '../../data/parameters/effects';
 import { IGroup } from '../../data/measurement/groups/types';
+import { categoriesData } from '../../components/Groups/data';
 
 export const Parameters: React.FC = () => {
   const [selected, setSelected] = useState<IParameter | null>();
@@ -75,14 +76,7 @@ export const Parameters: React.FC = () => {
 
   return (
     <>
-      <Breadcrumbs
-        data={[
-          {
-            link: '/parameters',
-            title: 'Параметры',
-          },
-        ]}
-      />
+      <Breadcrumbs data={[categoriesData.parameters]} />
       <ButtonsWrap>
         <Button onClick={addParam} width="220px">
           Добавить параметр

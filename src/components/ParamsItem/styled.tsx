@@ -12,6 +12,8 @@ export const Container = styled.div`
     padding: 0 16px;
   `}
 `;
+// box-shadow: ${active ? 'none' : shadow.main};
+// background-color: ${active ? colors.greySuperLightAlpha : '#fff'};
 
 export const Arrow = styled.div`
   width: 9px;

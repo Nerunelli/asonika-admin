@@ -17,7 +17,7 @@ export const RangeInput: React.FC<IProps> = ({ disabled = false, value, handleSu
   const [leftBrIdx, setLeftBrIdx] = useState(0);
   const [rightBrIdx, setRightBrIdx] = useState(0);
   const [innerValue, setInnerValue] = useState(value);
-  const { register, watch, setValue } = useForm();
+  const { register, watch, setValue, resetField } = useForm();
 
   useEffect(() => {
     setInnerValue(value);
@@ -44,8 +44,8 @@ export const RangeInput: React.FC<IProps> = ({ disabled = false, value, handleSu
       maxValue: Number(watch(`max`)),
       maxIsIncluded: Boolean(rightBrIdx),
     });
-    setValue(`min`, '');
-    setValue(`max`, '');
+    resetField('min');
+    resetField('max');
   };
 
   return (

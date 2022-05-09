@@ -14,6 +14,7 @@ import {
 } from '../../data/measurement/groups/effects';
 import { loadAllMeasurementUnitsFx } from '../../data/measurement/units/effects';
 import { clearStoreEv, selectGroupEv } from '../../data/measurement/groups/events';
+import { categoriesData } from '../../components/Groups/data';
 
 export const Reductions: React.FC = () => {
   const selectedGroup = useStore($selectedGroupStore);
@@ -57,14 +58,7 @@ export const Reductions: React.FC = () => {
 
   return (
     <>
-      <Breadcrumbs
-        data={[
-          {
-            link: '/reductions',
-            title: 'Единицы измерения',
-          },
-        ]}
-      />
+      <Breadcrumbs data={[categoriesData.reductions]} />
       <ButtonsWrap>
         <Button onClick={addReduction} width="260px">
           Добавить единицу измерения

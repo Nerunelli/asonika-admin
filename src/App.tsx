@@ -11,7 +11,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     if (!cookies.csrftoken) {
-      api.post('login/', { username: 'admin', password: 'admin' }).catch(console.error);
+      api.post('login/', { username: 'adminadmin', password: 'admin' }).catch(console.error);
     } else {
       api.defaults.headers.post['X-CSRFToken'] = cookies.csrftoken;
       api.defaults.headers.put['X-CSRFToken'] = cookies.csrftoken;

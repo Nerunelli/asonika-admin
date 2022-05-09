@@ -13,6 +13,7 @@ import {
   loadManufacturerFx,
   updateManufacturerFx,
 } from '../../data/manufacturers/effects';
+import { categoriesData } from '../../components/Groups/data';
 
 export const Manufacturers: React.FC = () => {
   const [selected, setSelected] = useState<IManufacturer | null>();
@@ -49,14 +50,7 @@ export const Manufacturers: React.FC = () => {
 
   return (
     <>
-      <Breadcrumbs
-        data={[
-          {
-            link: '/manufacturers',
-            title: 'Производители',
-          },
-        ]}
-      />
+      <Breadcrumbs data={[categoriesData.manufacturers]} />
       <ButtonsWrap>
         <Button onClick={addProducer} width="220px">
           Добавить производителя
