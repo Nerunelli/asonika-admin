@@ -9,14 +9,11 @@ export const ItemsContainer = styled.div`
   margin-right: 30px;
 `;
 
-export const ItemWrapper = styled.button`
+export const ItemWrapper = styled.div`
   padding: 0;
-  background: none;
-  cursor: pointer;
-  border-radius: 10px;
-  border: none;
   min-width: 470px;
   margin-bottom: 20px;
+
   &:last-child {
     margin-bottom: 0;
   }

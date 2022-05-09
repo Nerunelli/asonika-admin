@@ -68,8 +68,13 @@ export const Reductions: React.FC = () => {
         {groups.length ? (
           <ItemsContainer>
             {groups.map((group, i) => (
-              <ItemWrapper onClick={() => onSelect(group)} key={`paramItem-${group.name}${i}`}>
-                <ParamsItem>{group.name}</ParamsItem>
+              <ItemWrapper key={`paramItem-${group.name}${i}`}>
+                <ParamsItem
+                  onClick={() => onSelect(group)}
+                  active={selectedGroup?.uuid === group.uuid}
+                >
+                  {group.name}
+                </ParamsItem>
               </ItemWrapper>
             ))}
           </ItemsContainer>

@@ -16,6 +16,7 @@ export const ItemsContainer = styled.div`
 export const ItemWrapper = styled.div`
   min-width: 470px;
   margin-bottom: 20px;
+
   &:last-child {
     margin-bottom: 0;
   }
