@@ -1,11 +1,11 @@
 import styled, { css } from 'styled-components';
 
-export const Wrapper = styled.div<{ disabled: boolean }>`
-  ${({ theme: { colors }, disabled }) => css`
+export const Wrapper = styled.div<{ disabled: boolean; isError?: boolean }>`
+  ${({ theme: { colors }, disabled, isError }) => css`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border: 1px solid ${colors.greyDarkAlpha};
+    border: 1px solid ${isError ? colors.red : colors.greyDarkAlpha};
     height: 38px;
     padding: 0 10px;
     width: 370px;

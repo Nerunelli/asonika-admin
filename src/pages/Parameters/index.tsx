@@ -13,7 +13,6 @@ import {
   loadAllParametersFx,
   updateParameterFx,
 } from '../../data/parameters/effects';
-import { IGroup } from '../../data/measurement/groups/types';
 import { categoriesData } from '../../components/Groups/data';
 
 export const Parameters: React.FC = () => {
@@ -43,12 +42,12 @@ export const Parameters: React.FC = () => {
     setSelected(param);
   };
 
-  const handleSubmit = async (
-    name: string,
-    description: string,
-    measurementGroup: IGroup,
-    type: number,
-  ) => {
+  const handleSubmit = async ({
+    name,
+    description,
+    measurementGroup,
+    type,
+  }: Omit<IParameter, 'uuid'>) => {
     if (selected?.uuid) {
       updateParameter({
         uuid: selected.uuid,
@@ -98,7 +97,7 @@ export const Parameters: React.FC = () => {
           </ItemsContainer>
         ) : null}
         {selected && (
-          <EditParamForm group={selected} handleSubmit={handleSubmit} handleDelete={handleDelete} />
+          <EditParamForm group={selected} onSubmit={handleSubmit} onDelete={handleDelete} />
         )}
       </ParamsContainer>
     </>

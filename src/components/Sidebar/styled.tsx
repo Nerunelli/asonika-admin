@@ -50,6 +50,7 @@ export const Container = styled.div<{ isOpened: boolean }>`
 export const BtnWrapper = styled(Link)`
   margin-bottom: 20px;
   text-decoration: none;
+  -webkit-user-drag: none;
 
   &:last-child {
     margin-bottom: 0;

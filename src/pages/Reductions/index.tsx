@@ -15,6 +15,7 @@ import {
 import { loadAllMeasurementUnitsFx } from '../../data/measurement/units/effects';
 import { clearStoreEv, selectGroupEv } from '../../data/measurement/groups/events';
 import { categoriesData } from '../../components/Groups/data';
+import { IGroup } from '../../data/measurement/groups/types';
 
 export const Reductions: React.FC = () => {
   const selectedGroup = useStore($selectedGroupStore);
@@ -42,7 +43,7 @@ export const Reductions: React.FC = () => {
     selectGroup(group);
   };
 
-  const handleSubmit = async (name: string, description: string) => {
+  const handleSubmit = async ({ name, description }: Omit<IGroup, 'uuid'>) => {
     if (selectedGroup?.uuid) {
       updateMeasurementGroup({ uuid: selectedGroup.uuid, name, description });
     } else {
@@ -82,8 +83,8 @@ export const Reductions: React.FC = () => {
         {selectedGroup && (
           <EditReductionForm
             group={selectedGroup}
-            handleSubmit={handleSubmit}
-            handleDelete={handleDelete}
+            onSubmit={handleSubmit}
+            onDelete={handleDelete}
           />
         )}
       </ReductionsContainer>

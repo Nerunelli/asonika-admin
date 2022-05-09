@@ -44,7 +44,7 @@ export const Input = styled.input<{ active?: boolean }>`
   `}
 `;
 
-export const InputWrapper = styled.div`
+export const InputWrapper = styled.form`
   width: 100%;
 `;
 
@@ -67,15 +67,15 @@ export const Plus = styled.div`
   background-position: center;
 `;
 
-export const AddButton = styled.div`
-  ${({ theme: { colors } }) => css`
+export const AddButton = styled.button<{ disabled: boolean }>`
+  ${({ disabled, theme: { colors } }) => css`
     display: flex;
-    cursor: pointer;
+    cursor: ${disabled ? 'default' : 'pointer'};
     align-items: center;
     justify-content: center;
     width: 80px;
     height: 38px;
-    background-color: #fff;
+    background-color: ${disabled ? colors.greyLightAlpha : '#fff'};
     border-radius: 0 0 10px 10px;
     border: 1px solid ${colors.greyDarkAlpha};
     margin-top: -1px;

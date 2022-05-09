@@ -18,7 +18,7 @@ export const createMeasurementUnitFx = createEffect<Omit<IUnit, 'uuid'>, IUnit>(
 
 export const updateMeasurementUnitFx = createEffect<IUnit, IUnit>(async payload => {
   await api.put(`/measurement/unit/${payload.uuid}/`, {
-    ...payload,
+    ...camelToSnake<IUnit>(payload),
     group: payload.group.uuid,
   });
   return payload;
