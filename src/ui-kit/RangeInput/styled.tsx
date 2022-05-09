@@ -3,11 +3,11 @@ import styled, { css } from 'styled-components';
 export const Wrapper = styled.div`
   display: flex;
   justify-content: end;
-  margin-top: -17px;
 `;
 
 export const ButtonWrapper = styled.div`
   margin-right: 16px;
+
   &:last-child {
     margin-right: 0;
   }
