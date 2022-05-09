@@ -14,8 +14,9 @@ export const Wrapper = styled.div<{
   // width?: string;
   // height?: string;
   labelFontSize: number;
+  hasError?: boolean;
 }>`
-  ${({ theme: { colors }, labelFontSize }) => css`
+  ${({ theme: { colors }, labelFontSize, hasError }) => css`
     position: relative;
     display: flex;
     align-items: center;
@@ -23,8 +24,16 @@ export const Wrapper = styled.div<{
     margin-top: ${labelFontSize / 2}px;
 
     ${TextAreaUI}:focus ~ ${Border} {
-      border: 2px solid ${colors.lightGreen};
+      border: 2px solid ${hasError ? colors.red : colors.lightGreen};
     }
+
+    ${hasError
+      ? css`
+          ${Border} {
+            border: 1px solid ${colors.red};
+          }
+        `
+      : ''}
   `}
 `;
 

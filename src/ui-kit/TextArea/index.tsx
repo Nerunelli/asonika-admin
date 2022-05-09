@@ -12,6 +12,8 @@ interface Props {
   labelFontSize?: number;
   value?: string;
   onChange?: onChangeFunc;
+  labelText?: string;
+  hasError?: boolean;
 }
 
 export const TextArea: React.FC<Props> = ({
@@ -20,13 +22,22 @@ export const TextArea: React.FC<Props> = ({
   labelFontSize = 12,
   value,
   onChange,
+  labelText = 'Описание',
+  hasError,
+  ...inputProps
 }) => {
   return (
     <>
-      <Wrapper labelFontSize={labelFontSize}>
-        <TextAreaUI value={value} onChange={onChange} rows={6} placeholder="Введите текст" />
+      <Wrapper labelFontSize={labelFontSize} hasError={hasError}>
+        <TextAreaUI
+          {...inputProps}
+          value={value}
+          onChange={onChange}
+          rows={6}
+          placeholder="Введите текст"
+        />
         <LabelWrapper fontSize={labelFontSize}>
-          <LabelText fontSize={labelFontSize}>Описание</LabelText>
+          <LabelText fontSize={labelFontSize}>{labelText}</LabelText>
         </LabelWrapper>
         <Border />
       </Wrapper>

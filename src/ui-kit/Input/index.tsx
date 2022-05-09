@@ -8,6 +8,7 @@ import {
   Wrapper,
 } from './styled';
 import React, { ChangeEvent, ReactNode } from 'react';
+import { RefCallBack } from 'react-hook-form/dist/types/form';
 
 // eslint-disable-next-line no-unused-vars
 type onChangeFunc = (event: ChangeEvent<HTMLInputElement>) => void;
@@ -23,6 +24,7 @@ interface Props {
   labelFontSize?: number;
   onChange?: onChangeFunc;
   value?: string;
+  ref?: RefCallBack;
 }
 
 export const Input: React.FC<Props> = ({
@@ -36,6 +38,8 @@ export const Input: React.FC<Props> = ({
   labelFontSize = 12,
   onChange,
   value,
+  ref,
+  ...inputProps
 }) => {
   return (
     <>
@@ -46,7 +50,13 @@ export const Input: React.FC<Props> = ({
         isError={hasError}
         labelFontSize={labelFontSize}
       >
-        <InputUI placeholder={placeholder} value={value} onChange={onChange} />
+        <InputUI
+          {...inputProps}
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+          ref={ref}
+        />
         {isSearch && (
           <SearchIconWrapper>
             <SearchIcon />

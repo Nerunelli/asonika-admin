@@ -1,6 +1,6 @@
 import { createEffect } from 'effector';
 import { api } from '../../api/api';
-import { ICreateManufacturerPayload, IManufacturer, IUpdateManufacturerPayload } from './types';
+import { ICreateManufacturerPayload, IManufacturer } from './types';
 
 export const loadManufacturerFx = createEffect<void, IManufacturer[]>(async () => {
   const res = await api.get('/manufacturer/');
@@ -18,7 +18,7 @@ export const createManufacturerFx = createEffect<ICreateManufacturerPayload, IMa
   },
 );
 
-export const updateManufacturerFx = createEffect<IUpdateManufacturerPayload, IManufacturer>(
+export const updateManufacturerFx = createEffect<IManufacturer, IManufacturer>(
   async ({ uuid, name, description }) => {
     await api.put<{ data: IManufacturer }>(`/manufacturer/${uuid}/`, { description, name });
     return { uuid, name, description };

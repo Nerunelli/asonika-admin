@@ -4,13 +4,4 @@ export interface IManufacturer {
   description: string;
 }
 
-export interface ICreateManufacturerPayload {
-  name: string;
-  description: string;
-}
-
-export interface IUpdateManufacturerPayload {
-  uuid: string;
-  name: string;
-  description: string;
-}
+export type ICreateManufacturerPayload = Omit<IManufacturer, 'uuid'>;
